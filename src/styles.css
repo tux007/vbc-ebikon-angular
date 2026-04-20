@@ -587,7 +587,7 @@ nav a,
 .header-nav .dropdown-content {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
   min-width: 180px;
   background: #fff;
@@ -771,40 +771,109 @@ nav a,
 }
 
 /* Vorstand page */
-.vorstand-img-block {
-  display: flex;
-  flex-direction: column;
+.vorstand-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.vorstand-title {
+  text-align: center;
+  margin: 2rem 0;
+  margin-top: 80px;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+}
+
+.vorstand-carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: flex-start;
-  margin-right: 1vw;
+  gap: 0.75rem;
 }
 
-.vorstand-img-block img {
-  display: block;
-  height: 400px;
-  width: auto;
-  max-width: 420px;
-  object-fit: cover;
-  transition: transform 200ms ease-in-out, border-radius 200ms ease-in-out, filter 200ms ease-in-out;
-  filter: grayscale(100%);
+.vorstand-viewport {
+  overflow: hidden;
+  border-radius: 16px;
 }
 
-.vorstand-img-block img:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-  border-radius: 5%;
-  filter: grayscale(0%);
-}
-
-.gallery { width: 100vw; overflow: hidden; }
-
-.horizontal {
+.vorstand-track {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow: visible;
-  transition: transform ease-in-out;
-  padding: 8vw;
+  transition: transform 320ms ease;
+  will-change: transform;
+}
+
+.vorstand-track.without-transition {
+  transition: none;
+}
+
+.vorstand-card {
+  padding: 0.4rem;
+  box-sizing: border-box;
+}
+
+.vorstand-card-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.vorstand-card-info {
+  padding: 0.9rem 0.25rem 0.2rem;
+  text-align: center;
+}
+
+.vorstand-card-info h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  color: #202124;
+}
+
+.vorstand-card-info p {
+  margin: 0.35rem 0 0;
+  font-size: 0.98rem;
+  color: #5f6368;
+}
+
+.vorstand-nav-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(78, 84, 200, 0.14);
+  color: #1f2937;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.vorstand-nav-btn:hover,
+.vorstand-nav-btn:focus {
+  background: rgba(78, 84, 200, 0.25);
+  transform: scale(1.06);
+}
+
+.vorstand-empty {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 699px) {
+  .vorstand-carousel {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .vorstand-nav-btn {
+    justify-self: center;
+    width: 52px;
+    height: 36px;
+    font-size: 1.5rem;
+  }
 }
 
 /* Sponsoren page */

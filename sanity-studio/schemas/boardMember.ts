@@ -7,9 +7,8 @@ export const boardMember = defineType({
   fields: [
     defineField({ name: 'name',  title: 'Name',    type: 'string', validation: r => r.required() }),
     defineField({ name: 'role',  title: 'Funktion', type: 'string', validation: r => r.required() }),
-    defineField({ name: 'order', title: 'Reihenfolge', type: 'number', initialValue: 0 }),
     defineField({ name: 'email', title: 'E-Mail',  type: 'email' }),
-    defineField({ name: 'photo', title: 'Foto',    type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'photo', title: 'Foto',    type: 'image', options: { hotspot: true }, validation: r => r.required() }),
   ],
   preview: {
     select: { title: 'name', subtitle: 'role', media: 'photo' },
