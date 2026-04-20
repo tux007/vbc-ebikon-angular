@@ -5,13 +5,13 @@ import { environment } from '../../../environments/environment';
 import { GameResult, UpcomingGame, RankingEntry, TeamConfig } from '../models';
 
 const TEAMS: TeamConfig[] = [
-  { teamId: 1730,  gender: 'f', name: 'DJ1',     groupId: '',      slug: 'dj1' },
-  { teamId: 1731,  gender: 'f', name: 'DJ2',     groupId: '',      slug: 'dj2' },
-  { teamId: 12773, gender: 'f', name: 'DJ3',     groupId: '',      slug: 'dj3' },
+  { teamId: 1730,  gender: 'f', name: 'DJ1',     groupId: '27272', slug: 'dj1' },
+  { teamId: 1731,  gender: 'f', name: 'DJ2',     groupId: '27275', slug: 'dj2' },
+  { teamId: 12773, gender: 'f', name: 'DJ3',     groupId: '27276', slug: 'dj3' },
   { teamId: 4985,  gender: 'f', name: 'Damen 1', groupId: '27263', slug: 'damen-1' },
   { teamId: 2797,  gender: 'm', name: 'Herren 1',groupId: '27278', slug: 'herren-1' },
-  { teamId: 128,   gender: 'f', name: 'Damen 2', groupId: '',      slug: 'damen-2' },
-  { teamId: 1728,  gender: 'm', name: 'Herren 2',groupId: '',      slug: 'herren-2' },
+  { teamId: 128,   gender: 'f', name: 'Damen 2', groupId: '27266',      slug: 'damen-2' },
+  { teamId: 1728,  gender: 'm', name: 'Herren 2',groupId: '27302', slug: 'herren-2' },
 ];
 
 @Injectable({ providedIn: 'root' })
