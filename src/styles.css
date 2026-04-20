@@ -802,13 +802,10 @@ nav a,
   will-change: transform;
 }
 
-.vorstand-track.without-transition {
-  transition: none;
-}
-
 .vorstand-card {
   padding: 0.4rem;
   box-sizing: border-box;
+  transition: transform 0.2s ease;
 }
 
 .vorstand-card-photo {
@@ -818,6 +815,13 @@ nav a,
   object-fit: cover;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.vorstand-card:hover .vorstand-card-photo,
+.vorstand-card:focus-within .vorstand-card-photo {
+  transform: scale(1.04);
+  box-shadow: 0 14px 34px rgba(78, 84, 200, 0.2), 0 6px 18px rgba(0, 0, 0, 0.18);
 }
 
 .vorstand-card-info {
@@ -837,6 +841,15 @@ nav a,
   color: #5f6368;
 }
 
+.vorstand-email {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.92rem;
+  color: #4b5563;
+  user-select: text;
+  word-break: break-word;
+}
+
 .vorstand-nav-btn {
   width: 44px;
   height: 44px;
@@ -854,6 +867,12 @@ nav a,
 .vorstand-nav-btn:focus {
   background: rgba(78, 84, 200, 0.25);
   transform: scale(1.06);
+}
+
+.vorstand-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
 }
 
 .vorstand-empty {

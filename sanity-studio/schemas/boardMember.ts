@@ -7,6 +7,13 @@ export const boardMember = defineType({
   fields: [
     defineField({ name: 'name',  title: 'Name',    type: 'string', validation: r => r.required() }),
     defineField({ name: 'role',  title: 'Funktion', type: 'string', validation: r => r.required() }),
+    defineField({
+      name: 'order',
+      title: 'Reihenfolge',
+      type: 'number',
+      initialValue: 999,
+      description: 'Kleinere Zahl = weiter links (z.B. Präsident 1, Vize 2)',
+    }),
     defineField({ name: 'email', title: 'E-Mail',  type: 'email' }),
     defineField({ name: 'photo', title: 'Foto',    type: 'image', options: { hotspot: true }, validation: r => r.required() }),
   ],

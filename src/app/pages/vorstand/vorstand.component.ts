@@ -17,14 +17,12 @@ import { BoardMember } from '../../core/models';
 
       @if (!loading && carouselMembers.length) {
         <section class="vorstand-carousel" aria-label="Vorstandsmitglieder" (wheel)="onWheel($event)">
-          <button class="vorstand-nav-btn" type="button" aria-label="Vorheriges Vorstandsmitglied" (click)="prev()">‹</button>
+          <button class="vorstand-nav-btn" type="button" aria-label="Vorheriges Vorstandsmitglied" [disabled]="!canPrev" (click)="prev()">‹</button>
 
           <div class="vorstand-viewport">
             <div
               class="vorstand-track"
-              [class.without-transition]="withoutTransition"
               [style.transform]="trackTransform"
-              (transitionend)="onTrackTransitionEnd()"
             >
               @for (m of carouselMembers; track m._id + '-' + $index) {
                 <article class="vorstand-card" [style.flex]="cardFlexBasis">
@@ -36,13 +34,16 @@ import { BoardMember } from '../../core/models';
                   <div class="vorstand-card-info">
                     <h2>{{ m.name }}</h2>
                     <p>{{ m.role }}</p>
+                    @if (m.email) {
+                      <span class="vorstand-email">{{ obfuscateEmail(m.email) }}</span>
+                    }
                   </div>
                 </article>
               }
             </div>
           </div>
 
-          <button class="vorstand-nav-btn" type="button" aria-label="Nächstes Vorstandsmitglied" (click)="next()">›</button>
+          <button class="vorstand-nav-btn" type="button" aria-label="Nächstes Vorstandsmitglied" [disabled]="!canNext" (click)="next()">›</button>
         </section>
       }
 
@@ -56,9 +57,9 @@ export class VorstandComponent implements OnInit {
   private sanity = inject(SanityService);
 
   private readonly fallbackMembers: BoardMember[] = [
-    { _id: 'fallback-1', name: 'Präsidium', role: 'Präsident', photo: { asset: { _ref: '' }, url: '/assets/img/Vorstand/praesi.jpg' } },
-    { _id: 'fallback-2', name: 'Vizepräsidium', role: 'Vizepräsidentin', photo: { asset: { _ref: '' }, url: '/assets/img/Vorstand/vize.jpg' } },
-    { _id: 'fallback-3', name: 'Hallenwart', role: 'Infrastruktur', photo: { asset: { _ref: '' }, url: '/assets/img/Vorstand/hallen.jpg' } },
+    { _id: 'fallback-1', name: 'Präsidium', role: 'Präsident', order: 1, photo: { asset: { _ref: '' }, url: '/assets/img/Vorstand/praesi.jpg' } },
+    { _id: 'fallback-2', name: 'Vizepräsidium', role: 'Vizepräsidentin', order: 2, photo: { asset: { _ref: '' }, url: '/assets/img/Vorstand/vize.jpg' } },
+    { _id: 'fallback-3', name: 'Hallenwart', role: 'Infrastruktur', order: 3, photo: { asset: { _ref: '' }, url: '/assets/img/Vorstand/hallen.jpg' } },
   ];
 
   members: BoardMember[] = [];
@@ -67,7 +68,18 @@ export class VorstandComponent implements OnInit {
 
   visibleCount = 3;
   currentIndex = 0;
-  withoutTransition = false;
+
+  get canPrev(): boolean {
+    return this.currentIndex > 0;
+  }
+
+  get canNext(): boolean {
+    return this.currentIndex < this.maxStartIndex;
+  }
+
+  private get maxStartIndex(): number {
+    return Math.max(0, this.carouselMembers.length - this.visibleCount);
+  }
 
   get cardFlexBasis(): string {
     return `0 0 ${100 / this.visibleCount}%`;
@@ -80,7 +92,8 @@ export class VorstandComponent implements OnInit {
   ngOnInit(): void {
     this.updateVisibleCount();
     this.sanity.getBoardMembers().subscribe(m => {
-      this.members = m.length ? m : this.fallbackMembers;
+      const source = m.length ? m : this.fallbackMembers;
+      this.members = this.sortMembers(source);
       this.rebuildCarousel();
       this.loading = false;
     });
@@ -96,40 +109,24 @@ export class VorstandComponent implements OnInit {
   }
 
   next(): void {
-    if (this.members.length < this.visibleCount) return;
-    this.withoutTransition = false;
-    this.currentIndex += 1;
+    if (!this.canNext) return;
+    this.currentIndex = Math.min(this.currentIndex + 1, this.maxStartIndex);
   }
 
   prev(): void {
-    if (this.members.length < this.visibleCount) return;
-    this.withoutTransition = false;
-    this.currentIndex -= 1;
+    if (!this.canPrev) return;
+    this.currentIndex = Math.max(this.currentIndex - 1, 0);
   }
 
   onWheel(event: WheelEvent): void {
-    if (this.members.length < this.visibleCount) return;
-    event.preventDefault();
     if (event.deltaY > 0 || event.deltaX > 0) {
+      if (!this.canNext) return;
+      event.preventDefault();
       this.next();
     } else {
+      if (!this.canPrev) return;
+      event.preventDefault();
       this.prev();
-    }
-  }
-
-  onTrackTransitionEnd(): void {
-    if (this.members.length < this.visibleCount) return;
-
-    const size = this.members.length;
-    if (this.currentIndex >= size * 2) {
-      this.withoutTransition = true;
-      this.currentIndex -= size;
-      return;
-    }
-
-    if (this.currentIndex < size) {
-      this.withoutTransition = true;
-      this.currentIndex += size;
     }
   }
 
@@ -140,9 +137,36 @@ export class VorstandComponent implements OnInit {
       return;
     }
 
-    this.carouselMembers = [...this.members, ...this.members, ...this.members];
-    this.withoutTransition = true;
-    this.currentIndex = this.members.length;
+    this.carouselMembers = [...this.members];
+    this.currentIndex = Math.min(this.currentIndex, this.maxStartIndex);
+  }
+
+  private sortMembers(items: BoardMember[]): BoardMember[] {
+    const orderRank = (member: BoardMember): number => {
+      return Number.isFinite(member.order) ? Number(member.order) : Number.MAX_SAFE_INTEGER;
+    };
+
+    const rank = (member: BoardMember): number => {
+      const role = (member.role ?? '').toLocaleLowerCase('de-CH');
+      if (role.includes('präsident')) return 0;
+      if (role.includes('vize')) return 1;
+      return 2;
+    };
+
+    return [...items].sort((a, b) => {
+      const orderDiff = orderRank(a) - orderRank(b);
+      if (orderDiff !== 0) return orderDiff;
+
+      const diff = rank(a) - rank(b);
+      if (diff !== 0) return diff;
+      return a.name.localeCompare(b.name, 'de-CH');
+    });
+  }
+
+  obfuscateEmail(email: string): string {
+    return email
+      .replace('@', ' [at] ')
+      .replace(/\./g, ' [dot] ');
   }
 
   private updateVisibleCount(): void {

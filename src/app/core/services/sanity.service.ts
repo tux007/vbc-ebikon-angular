@@ -31,7 +31,7 @@ export class SanityService {
   }
 
   getBoardMembers(): Observable<BoardMember[]> {
-    return this.query(`*[_type == "boardMember"] | order(name asc) {_id, name, role, email, photo{asset->{_ref, url}}}`).pipe(
+    return this.query(`*[_type == "boardMember"] | order(coalesce(order, 999) asc, name asc) {_id, name, role, order, email, photo{asset->{_ref, url}}}`).pipe(
       map((items: any[]) => items.map(m => ({
         ...m,
         photo: m.photo ? { ...m.photo, url: m.photo.asset?.url ?? this.imageUrl(m.photo.asset?._ref) } : undefined,
