@@ -1,11 +1,18 @@
 [build]
-  command = "npm run build"
+  command = "npm run build:netlify"
   publish = "dist/vbc-ebikon-angular/browser"
 
 [build.environment]
   NODE_VERSION = "20"
 
-# SPA Routing: alle Pfade auf index.html umleiten
+# Sanity Studio unter /sanity-studio ausliefern
+[[redirects]]
+  from = "/sanity-studio/*"
+  to = "/sanity-studio/index.html"
+  status = 200
+  force = false
+
+# SPA Routing: alle übrigen Pfade auf Angular index.html umleiten
 [[redirects]]
   from = "/*"
   to = "/index.html"

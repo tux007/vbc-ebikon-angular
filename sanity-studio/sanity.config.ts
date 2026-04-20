@@ -11,6 +11,7 @@ const DATASET = 'production';
 export default defineConfig({
   name: 'vbc-ebikon',
   title: 'VBC Ebikon',
+  basePath: '/sanity-studio',
   projectId: PROJECT_ID,
   dataset: DATASET,
   plugins: [
