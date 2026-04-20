@@ -109,6 +109,16 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
 
           <a routerLink="/volleyballlager" routerLinkActive="active" (click)="closeMobileMenu()">Volleyballlager</a>
           <a routerLink="/kontakt" routerLinkActive="active" (click)="closeMobileMenu()">Kontakt</a>
+
+          <button
+            type="button"
+            class="header-theme-toggle"
+            (click)="toggleTheme()"
+            [attr.aria-label]="theme() === 'dark' ? 'Hellmodus aktivieren' : 'Dunkelmodus aktivieren'"
+            [attr.aria-pressed]="theme() === 'dark'"
+          >
+            {{ theme() === 'dark' ? 'Light' : 'Dark' }}
+          </button>
         </nav>
       </div>
     </header>
@@ -116,7 +126,9 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
 })
 export class HeaderComponent implements OnInit {
   private sanity = inject(SanityService);
+  private readonly themeStorageKey = 'vbc-theme';
   isScrolled = signal(false);
+  theme = signal<'light' | 'dark'>('light');
   isMenuOpen = false;
   isTeamsOpen = false;
   isAboutOpen = false;
@@ -146,6 +158,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initializeTheme();
+
     this.sanity.getTeams().subscribe(sanityTeams => {
       const bySlug = new Map<string, TeamMenuItem>();
 
@@ -190,6 +204,12 @@ export class HeaderComponent implements OnInit {
     this.isAboutOpen = false;
   }
 
+  toggleTheme(): void {
+    const nextTheme = this.theme() === 'dark' ? 'light' : 'dark';
+    this.applyTheme(nextTheme);
+    localStorage.setItem(this.themeStorageKey, nextTheme);
+  }
+
   blurActiveElement(): void {
     const active = document.activeElement;
     if (active instanceof HTMLElement) {
@@ -209,5 +229,27 @@ export class HeaderComponent implements OnInit {
       if (groupDiff !== 0) return groupDiff;
       return a.name.localeCompare(b.name, 'de-CH');
     });
+  }
+
+  private initializeTheme(): void {
+    const storedTheme = localStorage.getItem(this.themeStorageKey);
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+      this.applyTheme(storedTheme);
+      return;
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+      this.applyTheme('dark');
+      return;
+    }
+
+    this.theme.set('light');
+    document.documentElement.removeAttribute('data-theme');
+  }
+
+  private applyTheme(nextTheme: 'light' | 'dark'): void {
+    this.theme.set(nextTheme);
+    document.documentElement.setAttribute('data-theme', nextTheme);
   }
 }
