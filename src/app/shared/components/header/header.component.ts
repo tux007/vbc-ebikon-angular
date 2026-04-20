@@ -10,7 +10,7 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <header class="site-header">
+    <header class="site-header lg-glass-overlay">
       <div class="site-header-inner">
         <a class="header-brand" routerLink="/" (click)="closeMobileMenu()">
           <img src="/assets/img/LogoVBC.png" alt="VBC Ebikon Logo" class="header-logo" />
@@ -28,12 +28,12 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
           <span></span>
         </button>
 
-        <nav class="header-nav" [class.is-open]="isMenuOpen" aria-label="Hauptnavigation">
+        <nav class="header-nav" [class.is-open]="isMenuOpen" [class.lg-glass-overlay]="isMenuOpen" aria-label="Hauptnavigation">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMobileMenu()">Home</a>
 
           <div class="dropdown desktop-only">
             <button type="button" class="dropdown-trigger">Teams</button>
-            <div class="dropdown-content">
+            <div class="dropdown-content lg-glass-overlay">
               @if (femaleTeams.length) {
                 <div class="dropdown-group-label">Damen / Juniorinnen</div>
                 @for (team of femaleTeams; track team._id) {
@@ -85,7 +85,7 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
 
           <div class="dropdown desktop-only">
             <button type="button" class="dropdown-trigger">Über uns</button>
-            <div class="dropdown-content">
+            <div class="dropdown-content lg-glass-overlay">
               <a routerLink="/ueber-uns/jahresprogramm" (click)="blurActiveElement()">Jahresprogramm</a>
               <a routerLink="/ueber-uns/vorstand" (click)="blurActiveElement()">Vorstand</a>
               <a routerLink="/ueber-uns/beach" (click)="blurActiveElement()">Beachfeld</a>

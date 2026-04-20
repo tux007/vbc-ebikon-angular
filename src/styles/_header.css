@@ -10,10 +10,6 @@
   top: 100%;
   left: 0;
   min-width: 230px;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 16px 34px rgba(26, 40, 78, 0.16);
-  border: 1px solid rgba(78, 84, 200, 0.18);
-  border-radius: var(--lg-radius-md); /* nearest token */
   padding: 0.6em 0;
   z-index: 200;
 }
@@ -95,11 +91,6 @@
 }
 
 .site-header {
-  background: linear-gradient(140deg, var(--lg-surface-4), rgba(236, 244, 255, 0.92));
-  border-bottom: 1px solid var(--lg-border);
-  box-shadow: var(--lg-shadow-sm);
-  backdrop-filter: blur(var(--lg-blur-md));
-  -webkit-backdrop-filter: blur(var(--lg-blur-md));
 }
 
 .site-header-inner {
@@ -139,12 +130,6 @@
 }
 
 .site-header .dropdown-content {
-  background: var(--lg-surface-4);
-  border: 1px solid var(--lg-border);
-  border-radius: var(--lg-radius-md);
-  box-shadow: var(--lg-shadow-md);
-  backdrop-filter: blur(var(--lg-blur-md));
-  -webkit-backdrop-filter: blur(var(--lg-blur-md));
 }
 
 .dropdown-content a {
@@ -163,12 +148,6 @@
 
 @media (max-width: 1023px) {
   .header-nav {
-    background: var(--lg-surface-4);
-    border: 1px solid var(--lg-border);
-    border-radius: var(--lg-radius-md);
-    box-shadow: var(--lg-shadow-md);
-    backdrop-filter: blur(var(--lg-blur-md));
-    -webkit-backdrop-filter: blur(var(--lg-blur-md));
   }
 }
 
