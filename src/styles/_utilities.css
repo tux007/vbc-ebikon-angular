@@ -57,3 +57,22 @@
   transform: scaleX(1);
 }
 
+.lg-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--lg-ease-smooth), transform 700ms var(--lg-ease-spring);
+}
+
+.lg-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+

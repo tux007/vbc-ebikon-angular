@@ -1,10 +1,12 @@
 import { Component, HostListener, OnInit, inject } from '@angular/core';
 import { SanityService } from '../../core/services/sanity.service';
 import { BoardMember } from '../../core/models';
+import { LgHoverGlowDirective } from '../../shared/directives/lg-hover-glow.directive';
 
 @Component({
   selector: 'app-vorstand',
   standalone: true,
+  imports: [LgHoverGlowDirective],
   template: `
     <main class="vorstand-main">
       <h1 class="vorstand-title">Unser Vorstand</h1>
@@ -25,7 +27,7 @@ import { BoardMember } from '../../core/models';
               [style.transform]="trackTransform"
             >
               @for (m of carouselMembers; track m._id + '-' + $index) {
-                <article class="vorstand-card lg-glass-subtle lg-interactive" [style.flex]="cardFlexBasis">
+                <article class="vorstand-card lg-glass-subtle lg-interactive" lgHoverGlow [style.flex]="cardFlexBasis">
                   <img
                     class="vorstand-card-photo"
                     [src]="m.photo?.url || '/assets/img/Vorstand/praesi.jpg'"

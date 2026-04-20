@@ -72,6 +72,26 @@
 
 }
 
+.lg-interactive::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(
+		400px circle at var(--mx, 50%) var(--my, 50%),
+		var(--lg-brand-glow),
+		transparent 45%
+	);
+	opacity: 0;
+	transition: opacity var(--lg-dur-med) var(--lg-ease-smooth);
+	pointer-events: none;
+	mix-blend-mode: screen;
+}
+
+.lg-interactive:hover::after {
+	opacity: 1;
+}
+
 .lg-interactive:hover,
 
 .lg-interactive:focus-visible {
