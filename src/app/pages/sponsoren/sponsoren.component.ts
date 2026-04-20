@@ -8,7 +8,7 @@ import { Sponsor } from '../../core/models';
   template: `
     <main>
       <div class="sponsoren-main-block">
-        <div class="sponsoren-main-text">
+        <div class="sponsoren-main-text lg-glass-subtle">
           <p>
             Herzlichen Dank an unsere Sponsoren, die den VBC Ebikon tatkräftig unterstützen!
             Ohne eure Hilfe wäre unser Vereinsleben nicht möglich.
@@ -21,7 +21,7 @@ import { Sponsor } from '../../core/models';
                 [href]="s.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="sponsoren-kachel-link"
+                class="sponsoren-kachel-link lg-glass lg-interactive"
               >
                 <img
                   [src]="s.logo?.url"
@@ -30,7 +30,7 @@ import { Sponsor } from '../../core/models';
                 />
               </a>
             } @else {
-              <div class="sponsoren-kachel-link" aria-disabled="true">
+              <div class="sponsoren-kachel-link lg-glass lg-interactive" aria-disabled="true">
                 <img
                   [src]="s.logo?.url"
                   [alt]="s.name"
@@ -46,19 +46,19 @@ import { Sponsor } from '../../core/models';
           }
           @if (!loading && !sponsors.length) {
             <!-- Fallback: lokale Bilder -->
-            <a href="#" class="sponsoren-kachel-link">
+            <a href="#" class="sponsoren-kachel-link lg-glass lg-interactive">
               <img src="/assets/img/Sponsoren/sponsor1.jpg" alt="Sponsor 1" class="sponsoren-kachel-logo" />
             </a>
-            <a href="#" class="sponsoren-kachel-link">
+            <a href="#" class="sponsoren-kachel-link lg-glass lg-interactive">
               <img src="/assets/img/Sponsoren/sponsor3.png" alt="Sponsor 3" class="sponsoren-kachel-logo" />
             </a>
-            <a href="#" class="sponsoren-kachel-link">
+            <a href="#" class="sponsoren-kachel-link lg-glass lg-interactive">
               <img src="/assets/img/Sponsoren/sponsor4.jpg" alt="Sponsor 4" class="sponsoren-kachel-logo" />
             </a>
-            <a href="#" class="sponsoren-kachel-link">
+            <a href="#" class="sponsoren-kachel-link lg-glass lg-interactive">
               <img src="/assets/img/Sponsoren/sponsor5.png" alt="Sponsor 5" class="sponsoren-kachel-logo" />
             </a>
-            <a href="#" class="sponsoren-kachel-link">
+            <a href="#" class="sponsoren-kachel-link lg-glass lg-interactive">
               <img src="/assets/img/Sponsoren/sponsor6.png" alt="Sponsor 6" class="sponsoren-kachel-logo" />
             </a>
           }
