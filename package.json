@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:netlify": "npm run build && npm --prefix sanity-studio ci && npm --prefix sanity-studio run build -- --yes ../dist/vbc-ebikon-angular/browser/sanity-studio",
+    "build:netlify": "npm run build && npm --prefix sanity-studio ci && npm --prefix sanity-studio run build -- ../dist/vbc-ebikon-angular/browser/sanity-studio --yes",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
