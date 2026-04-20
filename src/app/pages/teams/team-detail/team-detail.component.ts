@@ -24,13 +24,13 @@ import { RankingEntry, Team } from '../../../core/models';
 
       <div class="team-info-blocks">
         @if (team?.description) {
-          <section class="team-info-section" style="margin-bottom:2rem;">
+          <section class="team-info-section lg-glass" style="margin-bottom:2rem;">
             <p>{{ team!.description }}</p>
           </section>
         }
 
         @if (team?.trainingTimes?.length) {
-          <section class="team-info-section" style="margin-bottom:2rem;">
+          <section class="team-info-section lg-glass" style="margin-bottom:2rem;">
             <h2>Trainingszeiten</h2>
             <ul>
               @for (slot of team!.trainingTimes!; track slot._key || $index) {
@@ -45,7 +45,7 @@ import { RankingEntry, Team } from '../../../core/models';
         }
 
         @if (team?.coaches?.length) {
-          <section class="team-info-section" style="margin-bottom:2rem;">
+          <section class="team-info-section lg-glass" style="margin-bottom:2rem;">
             <h2>TrainerInnen</h2>
             <ul>
               @for (coach of team!.coaches!; track coach) {
@@ -56,7 +56,7 @@ import { RankingEntry, Team } from '../../../core/models';
         }
 
         @if (team?.players?.length) {
-          <section class="team-info-section" style="margin-bottom:2rem;">
+          <section class="team-info-section lg-glass" style="margin-bottom:2rem;">
             <h2>SpielerInnen</h2>
             <ul>
               @for (player of team!.players!; track player) {
@@ -68,7 +68,7 @@ import { RankingEntry, Team } from '../../../core/models';
 
         <!-- Rangliste (API-Tabelle und/oder Direktlink) -->
         @if (groupId || rankingLink) {
-          <section class="team-ranking-section" style="margin-bottom:2rem;">
+          <section class="team-ranking-section lg-glass" style="margin-bottom:2rem;">
             <button class="team-toggle-btn" type="button" (click)="toggleSection('ranking')">
               <span>{{ sectionOpen['ranking'] ? '−' : '+' }}</span> Rangliste
             </button>

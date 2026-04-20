@@ -118,12 +118,6 @@
 
 .team-info-section,
 .team-ranking-section {
-  background: linear-gradient(155deg, var(--lg-surface-2), var(--lg-surface-1));
-  border: 1px solid var(--lg-border);
-  border-radius: var(--lg-radius-lg);
-  box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
-  backdrop-filter: blur(var(--lg-blur-md));
-  -webkit-backdrop-filter: blur(var(--lg-blur-md));
   padding: 1.1rem 1.2rem;
 }
 
