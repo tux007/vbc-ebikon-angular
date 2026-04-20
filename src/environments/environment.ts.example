@@ -1,0 +1,9 @@
+export const environment = {
+  production: false,
+  volleyballApiBase: 'https://api.volleyball.ch/indoor',
+  volleyballAuthToken: 'YOUR_VOLLEYBALL_API_TOKEN',
+  volleyballClubId: 911080,
+  sanityProjectId: 'YOUR_SANITY_PROJECT_ID',
+  sanityDataset: 'production',
+  sanityApiVersion: '2024-01-01',
+};
