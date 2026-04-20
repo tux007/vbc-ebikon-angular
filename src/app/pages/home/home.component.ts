@@ -15,7 +15,7 @@ import { LgRevealDirective } from '../../shared/directives/lg-reveal.directive';
       <!-- Hero -->
       <div class="hero-bg">
         <div class="hero-center-content">
-          <div class="hero-glass-panel lg-glass">
+          <div class="hero-glass-panel lg-glass-subtle">
             <h1 class="hero-title">Volleyballclub Ebikon</h1>
             <p>
               Hallo zusammen und herzlich willkommen auf dem Internetauftritt des VBC Ebikon.<br />

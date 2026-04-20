@@ -102,6 +102,13 @@
   transition: box-shadow var(--lg-dur-med), backdrop-filter var(--lg-dur-med), -webkit-backdrop-filter var(--lg-dur-med);
 }
 
+.site-header.lg-glass-overlay {
+  position: sticky;
+  top: 0;
+  z-index: 120;
+  overflow: visible;
+}
+
 .site-header.is-scrolled {
   box-shadow: var(--lg-shadow-lg);
   backdrop-filter: blur(var(--lg-blur-lg)) saturate(200%);
@@ -110,6 +117,7 @@
 
 .site-header-inner {
   width: var(--lg-container);
+  overflow: visible;
 }
 
 .header-nav a,
