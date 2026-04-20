@@ -19,13 +19,13 @@ import { BoardMember } from '../../core/models';
         <section class="vorstand-carousel" aria-label="Vorstandsmitglieder" (wheel)="onWheel($event)">
           <button class="vorstand-nav-btn" type="button" aria-label="Vorheriges Vorstandsmitglied" [disabled]="!canPrev" (click)="prev()">‹</button>
 
-          <div class="vorstand-viewport">
+          <div class="vorstand-viewport lg-glass-strong">
             <div
               class="vorstand-track"
               [style.transform]="trackTransform"
             >
               @for (m of carouselMembers; track m._id + '-' + $index) {
-                <article class="vorstand-card" [style.flex]="cardFlexBasis">
+                <article class="vorstand-card lg-glass-subtle lg-interactive" [style.flex]="cardFlexBasis">
                   <img
                     class="vorstand-card-photo"
                     [src]="m.photo?.url || '/assets/img/Vorstand/praesi.jpg'"

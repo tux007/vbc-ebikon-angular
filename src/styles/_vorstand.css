@@ -21,7 +21,6 @@
 
 .vorstand-viewport {
   overflow: hidden;
-  border-radius: var(--lg-radius-md);
 }
 
 .vorstand-track {
@@ -132,12 +131,6 @@
 }
 
 .vorstand-viewport {
-  background: linear-gradient(150deg, var(--lg-surface-2), var(--lg-surface-1));
-  border: 1px solid var(--lg-border);
-  border-radius: var(--lg-radius-md);
-  box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
-  backdrop-filter: blur(var(--lg-blur-lg));
-  -webkit-backdrop-filter: blur(var(--lg-blur-lg));
 }
 
 .vorstand-track {
@@ -145,11 +138,6 @@
 }
 
 .vorstand-card {
-  border-radius: var(--lg-radius-md);
-  background: linear-gradient(150deg, var(--lg-surface-2), var(--lg-surface-1));
-  border: 1px solid var(--lg-border-soft);
-  backdrop-filter: blur(var(--lg-blur-sm));
-  -webkit-backdrop-filter: blur(var(--lg-blur-sm));
   transition: transform var(--lg-dur-fast) var(--lg-ease-spring);
 }
 
