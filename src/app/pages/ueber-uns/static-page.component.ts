@@ -7,27 +7,27 @@ import { StaticPage } from '../../core/models';
   selector: 'app-static-page',
   standalone: true,
   template: `
-    <main style="max-width:900px; margin:0 auto; padding:2.5rem 1rem 3rem;">
+    <main class="static-page-main">
       @if (loading) {
         <div class="banner-loading">
           <img src="/assets/img/volleyball-loader.png" alt="Laden…" class="banner-volleyball-spinner" />
         </div>
       } @else if (page) {
-        <h1 style="font-size:2.3rem; font-weight:700; margin-bottom:2rem;">{{ page.title }}</h1>
+        <h1 class="static-page-title">{{ page.title }}</h1>
 
         @for (block of page.body ?? []; track $index) {
           @if (block._type === 'block') {
-            <p>{{ block.children?.[0]?.text }}</p>
+            <p class="static-page-text">{{ block.children?.[0]?.text }}</p>
           }
         }
 
         @if (page.documents?.length) {
-          <h2 style="margin-top:2rem;">Dokumente</h2>
-          <ul style="list-style:none; padding:0;">
+          <h2 class="static-page-subtitle">Dokumente</h2>
+          <ul class="static-page-doc-list">
             @for (doc of page.documents; track doc._key) {
-              <li style="margin-bottom:0.7rem;">
+              <li class="static-page-doc-item">
                 <a [href]="doc.file.asset.url" target="_blank" rel="noopener"
-                   style="color:#4e54c8; text-decoration:underline;">
+                   class="static-page-doc-link">
                   {{ doc.title }}
                 </a>
               </li>
@@ -35,8 +35,8 @@ import { StaticPage } from '../../core/models';
           </ul>
         }
       } @else {
-        <h1 style="font-size:2.3rem; margin-bottom:1rem;">{{ title }}</h1>
-        <p style="color:#888;">Diese Seite wird noch aufgebaut. Bitte schau bald wieder vorbei!</p>
+        <h1 class="static-page-title">{{ title }}</h1>
+        <p class="static-page-empty">Diese Seite wird noch aufgebaut. Bitte schau bald wieder vorbei!</p>
       }
     </main>
   `,

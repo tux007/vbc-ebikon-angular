@@ -14,7 +14,6 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
       <div class="site-header-inner">
         <a class="header-brand" routerLink="/" (click)="closeMobileMenu()">
           <img src="/assets/img/LogoVBC.png" alt="VBC Ebikon Logo" class="header-logo" />
-          <span class="header-brand-text">VBC Ebikon</span>
         </a>
 
         <button
