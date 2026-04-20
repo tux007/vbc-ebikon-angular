@@ -49,7 +49,7 @@ export class SanityService {
   }
 
   getTeam(slug: string): Observable<Team | null> {
-    return this.query(`*[_type == "team" && slug.current == "${slug}"][0] {_id, name, "slug": slug.current, description, gender, level, photo{asset->{_ref, url}}}`).pipe(
+    return this.query(`*[_type == "team" && slug.current == "${slug}"][0] {_id, name, "slug": slug.current, description, gender, level, groupId, rankingLink, trainingTimes[]{_key, day, time, location}, players, coaches, photo{asset->{_ref, url}}}`).pipe(
       map((item: any) => item ? {
         ...item,
         photo: item.photo ? { ...item.photo, url: item.photo.asset?.url ?? this.imageUrl(item.photo.asset?._ref) } : undefined,
@@ -58,7 +58,7 @@ export class SanityService {
   }
 
   getTeams(): Observable<Team[]> {
-    return this.query(`*[_type == "team" && defined(slug.current)] | order(name asc) {_id, name, "slug": slug.current, gender, level}`).pipe(
+    return this.query(`*[_type == "team" && defined(slug.current)] | order(name asc) {_id, name, "slug": slug.current, gender, level, groupId, rankingLink}`).pipe(
       map((items: any[]) => items.filter(t => t?.slug))
     );
   }

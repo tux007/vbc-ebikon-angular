@@ -14,6 +14,40 @@ export const team = defineType({
     }),
     defineField({ name: 'level', title: 'Liga / Kategorie', type: 'string' }),
     defineField({ name: 'photo', title: 'Teamfoto',  type: 'image', options: { hotspot: true } }),
+    defineField({
+      name: 'trainingTimes',
+      title: 'Trainingszeiten',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          defineField({ name: 'day', title: 'Tag', type: 'string' }),
+          defineField({ name: 'time', title: 'Zeit', type: 'string' }),
+          defineField({ name: 'location', title: 'Ort / Halle', type: 'string' }),
+        ],
+        preview: {
+          select: { day: 'day', time: 'time', location: 'location' },
+          prepare({ day, time, location }) {
+            const left = [day, time].filter(Boolean).join(', ');
+            return { title: left || 'Training', subtitle: location || '' };
+          },
+        },
+      }],
+    }),
+    defineField({
+      name: 'players',
+      title: 'SpielerInnen',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'coaches',
+      title: 'TrainerInnen',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({ name: 'rankingLink', title: 'Direktlink Rangliste', type: 'url' }),
+    defineField({ name: 'groupId', title: 'VolleyManager Group-ID (für API-Rangliste)', type: 'string' }),
   ],
   preview: {
     select: { title: 'name', subtitle: 'level', media: 'photo' },

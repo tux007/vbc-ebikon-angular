@@ -29,19 +29,56 @@ import { RankingEntry, Team } from '../../../core/models';
           </section>
         }
 
-        <!-- Rangliste (nur wenn groupId vorhanden) -->
-        @if (groupId) {
+        @if (team?.trainingTimes?.length) {
+          <section class="team-info-section" style="margin-bottom:2rem;">
+            <h2>Trainingszeiten</h2>
+            <ul>
+              @for (slot of team!.trainingTimes!; track slot._key || $index) {
+                <li>
+                  <strong>{{ slot.day || 'Training' }}</strong>
+                  @if (slot.time) { <span> - {{ slot.time }}</span> }
+                  @if (slot.location) { <span> ({{ slot.location }})</span> }
+                </li>
+              }
+            </ul>
+          </section>
+        }
+
+        @if (team?.coaches?.length) {
+          <section class="team-info-section" style="margin-bottom:2rem;">
+            <h2>TrainerInnen</h2>
+            <ul>
+              @for (coach of team!.coaches!; track coach) {
+                <li>{{ coach }}</li>
+              }
+            </ul>
+          </section>
+        }
+
+        @if (team?.players?.length) {
+          <section class="team-info-section" style="margin-bottom:2rem;">
+            <h2>SpielerInnen</h2>
+            <ul>
+              @for (player of team!.players!; track player) {
+                <li>{{ player }}</li>
+              }
+            </ul>
+          </section>
+        }
+
+        <!-- Rangliste (API-Tabelle und/oder Direktlink) -->
+        @if (groupId || rankingLink) {
           <section class="team-ranking-section" style="margin-bottom:2rem;">
             <button class="team-toggle-btn" type="button" (click)="toggleSection('ranking')">
               <span>{{ sectionOpen['ranking'] ? '−' : '+' }}</span> Rangliste
             </button>
             @if (sectionOpen['ranking']) {
               <div class="team-collapsible">
-                @if (loadingRanking) {
+                @if (groupId && loadingRanking) {
                   <div class="banner-loading">
                     <img src="/assets/img/volleyball-loader.png" alt="Laden…" class="banner-volleyball-spinner" />
                   </div>
-                } @else if (ranking.length) {
+                } @else if (groupId && ranking.length) {
                   <div class="banner" style="margin-bottom:1.5rem; text-align:left; min-width:0; max-width:100%;">
                     <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
                       <thead>
@@ -68,8 +105,14 @@ import { RankingEntry, Team } from '../../../core/models';
                       </tbody>
                     </table>
                   </div>
-                } @else {
+                } @else if (groupId) {
                   <p>Keine Ranglistendaten gefunden.</p>
+                }
+
+                @if (rankingLink) {
+                  <p style="margin-top:0.75rem; text-align:right;">
+                    <a [href]="rankingLink" target="_blank" rel="noopener">Direktlink zur offiziellen Rangliste</a>
+                  </p>
                 }
               </div>
             }
@@ -87,9 +130,11 @@ export class TeamDetailComponent implements OnInit {
   team: Team | null = null;
   teamName = '';
   groupId = '';
+  rankingLink = '';
   localPhoto = '';
   ranking: RankingEntry[] = [];
   loadingRanking = false;
+  private lastLoadedGroupId = '';
   sectionOpen: Record<string, boolean> = { ranking: false };
 
   // Fallback-Photos für bestehende Teams
@@ -104,17 +149,38 @@ export class TeamDetailComponent implements OnInit {
       const config = this.volleyballApi.getTeamBySlug(slug);
       this.teamName = config?.name ?? slug;
       this.groupId  = config?.groupId ?? '';
+      this.rankingLink = '';
       this.localPhoto = this.localPhotos[slug] ?? '';
+      this.loadRanking();
 
-      this.sanity.getTeam(slug).subscribe(t => (this.team = t));
+      this.sanity.getTeam(slug).subscribe(t => {
+        this.team = t;
+        if (t?.name) this.teamName = t.name;
+        this.groupId = t?.groupId || config?.groupId || '';
+        this.rankingLink = t?.rankingLink || '';
+        this.loadRanking();
+      });
+    });
+  }
 
-      if (this.groupId) {
-        this.loadingRanking = true;
-        this.volleyballApi.getRanking(this.groupId).subscribe(r => {
-          this.ranking = r;
-          this.loadingRanking = false;
-        });
-      }
+  private loadRanking(): void {
+    if (!this.groupId) {
+      this.ranking = [];
+      this.loadingRanking = false;
+      this.lastLoadedGroupId = '';
+      return;
+    }
+
+    if (this.groupId === this.lastLoadedGroupId && this.ranking.length > 0) {
+      return;
+    }
+
+    this.lastLoadedGroupId = this.groupId;
+    this.loadingRanking = true;
+    this.ranking = [];
+    this.volleyballApi.getRanking(this.groupId).subscribe(r => {
+      this.ranking = r;
+      this.loadingRanking = false;
     });
   }
 

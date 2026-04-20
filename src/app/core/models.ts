@@ -76,9 +76,14 @@ export interface Team {
   name: string;
   slug: string;
   description?: string;
-  gender: 'f' | 'm';
+  gender?: 'f' | 'm';
   level?: string;
   photo?: SanityImage & { url: string };
+  trainingTimes?: { _key?: string; day?: string; time?: string; location?: string }[];
+  players?: string[];
+  coaches?: string[];
+  rankingLink?: string;
+  groupId?: string;
 }
 
 export interface StaticPage {

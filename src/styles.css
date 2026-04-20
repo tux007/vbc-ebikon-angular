@@ -615,6 +615,19 @@ nav a,
   transition: color 0.18s;
 }
 
+.dropdown-group-label {
+  padding: 0.5em 1.2em 0.25em;
+  color: #6b7280;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dropdown-group-label:not(:first-child) {
+  margin-top: 0.35em;
+}
+
 .dropdown-content a:hover,
 .dropdown-content a:focus {
   color: #4e54c8;
