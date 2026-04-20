@@ -15,7 +15,7 @@ import { SponsorCarouselComponent } from '../../shared/components/sponsor-carous
         <div class="animate one">
           <span>V</span><span>o</span><span>l</span><span>l</span><span>e</span><span>y</span><span>b</span><span>a</span><span>l</span><span>l</span><span>c</span><span>l</span><span>u</span><span>b</span>&nbsp;<span>E</span><span>b</span><span>i</span><span>k</span><span>o</span><span>n</span>
         </div>
-        <p>
+        <p class="lg-glass">
           Hallo zusammen und herzlich willkommen auf dem Internetauftritt des VBC Ebikon.<br />
           Falls du gerne mit News, Matchberichten und Bildern versorgt wirst,
           kannst du uns auch gerne auf
@@ -34,11 +34,11 @@ import { SponsorCarouselComponent } from '../../shared/components/sponsor-carous
           <img src="/assets/img/volleyball-loader.png" alt="Laden…" class="banner-volleyball-spinner" />
         </div>
       } @else if (upcomingGames.length === 0) {
-        <div class="banner" style="margin-bottom:1.5rem;">
+        <div class="banner lg-glass" style="margin-bottom:1.5rem;">
           <p style="text-align:center">Keine anstehenden Spiele gefunden.</p>
         </div>
       } @else {
-        <div class="banner" style="margin-bottom:1.5rem; min-width:min(900px,96vw); max-width:1000px; flex:none;">
+        <div class="banner lg-glass" style="margin-bottom:1.5rem; min-width:min(900px,96vw); max-width:1000px; flex:none;">
           <div class="banner-score-sets" style="margin-bottom:1rem;">
             <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
               <thead>
@@ -82,7 +82,7 @@ import { SponsorCarouselComponent } from '../../shared/components/sponsor-carous
           </div>
         }
         @for (b of visibleBanners; track b.teamName) {
-          <div class="banner">
+          <div class="banner lg-glass lg-interactive">
             <div class="banner-header">
               <div class="banner-date">{{ b.playDateTime }}</div>
               <div class="banner-location">{{ b.city }}</div>

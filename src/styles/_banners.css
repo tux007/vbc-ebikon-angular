@@ -48,23 +48,14 @@
   min-width: 340px;
   max-width: 370px;
   flex: 0 0 340px;
-  background: #fff;
   color: #222;
-  border-radius: var(--lg-radius-md); /* nearest token */
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(78, 84, 200, 0.1);
   padding: 1.5rem 2rem 1.2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
   font-size: 1rem;
   position: relative;
   margin: 0.5rem 0;
-}
-
-.banner:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 8px 24px rgba(78, 84, 200, 0.18), 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .banner-header {
@@ -248,18 +239,7 @@
 }
 
 .banner {
-  background: linear-gradient(155deg, var(--lg-surface-3), var(--lg-surface-2));
-  border: 1px solid var(--lg-border);
-  border-radius: var(--lg-radius-md);
-  box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
-  backdrop-filter: blur(var(--lg-blur-md));
-  -webkit-backdrop-filter: blur(var(--lg-blur-md));
   color: var(--lg-ink);
-  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
-}
-
-.banner:hover {
-  box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow);
 }
 
 .banner-date,

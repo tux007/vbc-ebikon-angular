@@ -46,12 +46,6 @@
 }
 
 .hero-center-content p {
-  background: linear-gradient(145deg, var(--lg-surface-3), var(--lg-surface-2));
-  border: 1px solid var(--lg-border);
-  border-radius: var(--lg-radius-lg);
-  box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
-  backdrop-filter: blur(var(--lg-blur-md));
-  -webkit-backdrop-filter: blur(var(--lg-blur-md));
   color: #223761;
 }
 
