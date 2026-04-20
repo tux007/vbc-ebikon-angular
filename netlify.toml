@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Sanity Studio-Build nutzt absolute /static/*-URLs -> auf Studio-Assets umleiten
+[[redirects]]
+  from = "/static/*"
+  to = "/sanity-studio/static/:splat"
+  status = 200
+  force = false
+
 # Sanity Studio unter /sanity-studio ausliefern
 [[redirects]]
   from = "/sanity-studio/*"
