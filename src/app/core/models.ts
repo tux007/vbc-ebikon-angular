@@ -86,6 +86,30 @@ export interface Team {
   groupId?: string;
 }
 
+export type AnnualProgramCategory =
+  | 'Vereinsanlass'
+  | 'Spezialtraining'
+  | 'Spieltag'
+  | 'Trainingsweekend'
+  | 'Volleyballlager';
+
+export interface AnnualProgramEvent {
+  _key: string;
+  startDate: string;
+  endDate?: string;
+  description: string;
+  category: AnnualProgramCategory;
+}
+
+export interface AnnualProgramPage {
+  _id: string;
+  title: string;
+  slug: string;
+  body?: PortableTextBlock[];
+  programYear?: number;
+  annualProgramEvents?: AnnualProgramEvent[];
+}
+
 export interface StaticPage {
   _id: string;
   title: string;

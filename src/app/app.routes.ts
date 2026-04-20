@@ -29,8 +29,7 @@ export const routes: Routes = [
   },
   {
     path: 'ueber-uns/jahresprogramm',
-    loadComponent: () => import('./pages/ueber-uns/static-page.component').then(m => m.StaticPageComponent),
-    data: { slug: 'jahresprogramm' },
+    loadComponent: () => import('./pages/ueber-uns/jahresprogramm').then(m => m.JahresprogrammComponent),
   },
   {
     path: 'ueber-uns/dokumente',

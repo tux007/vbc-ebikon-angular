@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { BoardMember, Sponsor, Team, StaticPage } from '../models';
+import { AnnualProgramPage, BoardMember, Sponsor, Team, StaticPage } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class SanityService {
@@ -61,6 +61,10 @@ export class SanityService {
     return this.query(`*[_type == "team" && defined(slug.current)] | order(name asc) {_id, name, "slug": slug.current, gender, level, groupId, rankingLink}`).pipe(
       map((items: any[]) => items.filter(t => t?.slug))
     );
+  }
+
+  getAnnualProgram(): Observable<AnnualProgramPage | null> {
+    return this.query(`*[_type == "page" && slug == "jahresprogramm"][0] {_id, title, slug, body, programYear, "annualProgramEvents": annualProgramEvents|order(startDate asc){_key, startDate, endDate, description, category}}`);
   }
 
   getPage(slug: string): Observable<StaticPage | null> {

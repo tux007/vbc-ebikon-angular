@@ -1,0 +1,123 @@
+<main class="annual-program-page">
+  <section class="annual-program-hero">
+    <div class="annual-program-year" aria-hidden="true">{{ displayYear }}</div>
+
+    @if (loading) {
+      <div class="banner-loading annual-program-loading">
+        <img src="/assets/img/volleyball-loader.png" alt="Laden…" class="banner-volleyball-spinner" />
+      </div>
+    } @else {
+      <div class="annual-program-heading">
+        <span class="annual-program-eyebrow">VBC Ebikon</span>
+        <h1>{{ page?.title || 'Jahresprogramm' }}</h1>
+        <p class="annual-program-subtitle">
+          Alle Vereinsanlaesse, Weekends, Spieltage und Highlights im Jahresverlauf auf einen Blick.
+        </p>
+
+        @for (paragraph of introParagraphs; track $index) {
+          <p class="annual-program-intro">{{ paragraph }}</p>
+        }
+      </div>
+    }
+  </section>
+
+  @if (!loading) {
+    <section class="annual-program-toolbar">
+      <div class="annual-program-filterbar" role="tablist" aria-label="Kategorien filtern">
+        <button
+          class="filter-pill"
+          type="button"
+          [class.is-active]="activeFilter === 'Alle'"
+          (click)="setFilter('Alle')"
+        >
+          Alle
+        </button>
+
+        @for (category of categories; track category) {
+          <button
+            class="filter-pill"
+            type="button"
+            [class.is-active]="activeFilter === category"
+            [style.--pill-color]="categoryMeta(category).color"
+            (click)="setFilter(category)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path [attr.d]="categoryMeta(category).icon"></path>
+            </svg>
+            {{ category }}
+          </button>
+        }
+      </div>
+
+      <button class="past-toggle" type="button" (click)="togglePastEvents()">
+        {{ showPastEvents ? 'Vergangene Events ausblenden' : 'Vergangene Events anzeigen' }}
+      </button>
+    </section>
+
+    @if (monthGroups.length) {
+      <section class="timeline-shell">
+        <div class="timeline-months" [@timelineShuffle]="animationCycle">
+          @for (month of monthGroups; track trackMonth($index, month)) {
+            <section
+              #monthSection
+              class="timeline-month-section"
+              [attr.data-month-key]="month.key"
+            >
+              <header class="timeline-month-header">
+                <span>{{ month.label }}</span>
+                @if (month.isCurrent) {
+                  <span class="current-month-badge">Aktueller Monat</span>
+                }
+              </header>
+
+              <div class="timeline-month-cards">
+                @for (event of month.events; track event.id) {
+                  <article
+                    #timelineCard
+                    class="timeline-card"
+                    [attr.data-event-id]="event.id"
+                    [class.is-past]="event.isPast"
+                    [class.is-highlight]="event.isHighlight"
+                    [class.side-right]="event.side === 'right'"
+                    [class.side-left]="event.side === 'left'"
+                    [style.--event-color]="categoryMeta(event.category).color"
+                    [@cardReveal]="cardState(event.id)"
+                  >
+                    <span class="timeline-dot" aria-hidden="true"></span>
+
+                    <div class="timeline-card-surface">
+                      <div class="timeline-card-meta">
+                        <span class="timeline-category-pill">
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path [attr.d]="categoryMeta(event.category).icon"></path>
+                          </svg>
+                          {{ event.category }}
+                        </span>
+
+                        @if (event.isPast) {
+                          <span class="timeline-badge is-past">Vergangen</span>
+                        }
+
+                        @if (event.countdownText && !event.isPast) {
+                          <span class="timeline-badge is-countdown">{{ event.countdownText }}</span>
+                        }
+                      </div>
+
+                      <div class="timeline-date">{{ event.displayDate }}</div>
+                      <h2>{{ event.description }}</h2>
+                    </div>
+                  </article>
+                }
+              </div>
+            </section>
+          }
+        </div>
+      </section>
+    } @else {
+      <section class="annual-program-empty-state">
+        <h2>Keine Eintraege fuer die aktuelle Auswahl</h2>
+        <p>In Sanity koennen neue Termine mit Datum, Beschreibung und Kategorie direkt erfasst werden.</p>
+      </section>
+    }
+  }
+</main>
