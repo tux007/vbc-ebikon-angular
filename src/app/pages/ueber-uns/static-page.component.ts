@@ -7,7 +7,7 @@ import { StaticPage } from '../../core/models';
   selector: 'app-static-page',
   standalone: true,
   template: `
-    <main class="static-page-main">
+    <main class="static-page-main lg-glass">
       @if (loading) {
         <div class="banner-loading">
           <img src="/assets/img/volleyball-loader.png" alt="Laden…" class="banner-volleyball-spinner" />
