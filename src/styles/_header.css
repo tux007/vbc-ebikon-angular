@@ -5,18 +5,26 @@
 }
 
 .site-header .dropdown-content {
-  display: none;
+  display: block;
   position: absolute;
   top: 100%;
   left: 0;
   min-width: 230px;
   padding: 0.6em 0;
   z-index: 200;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition:
+    opacity var(--lg-dur-fast) var(--lg-ease-smooth),
+    transform var(--lg-dur-fast) var(--lg-ease-spring);
 }
 
 .site-header .dropdown:hover .dropdown-content,
 .site-header .dropdown:focus-within .dropdown-content {
-  display: block;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 
 .dropdown-trigger {
@@ -91,6 +99,13 @@
 }
 
 .site-header {
+  transition: box-shadow var(--lg-dur-med), backdrop-filter var(--lg-dur-med), -webkit-backdrop-filter var(--lg-dur-med);
+}
+
+.site-header.is-scrolled {
+  box-shadow: var(--lg-shadow-lg);
+  backdrop-filter: blur(var(--lg-blur-lg)) saturate(200%);
+  -webkit-backdrop-filter: blur(var(--lg-blur-lg)) saturate(200%);
 }
 
 .site-header-inner {
@@ -108,6 +123,15 @@
     transform var(--lg-dur-fast) var(--lg-ease-spring);
 }
 
+.header-nav a {
+  position: relative;
+  transition: color var(--lg-dur-fast), background var(--lg-dur-fast);
+}
+
+.header-nav a:hover:not(.active) {
+  background: var(--lg-surface-2);
+}
+
 .header-nav a:focus,
 .dropdown-trigger:hover,
 .dropdown-trigger:focus,
@@ -116,9 +140,9 @@
 }
 
 .header-nav a.active {
+  color: white !important;
   background: var(--lg-brand-grad);
-  color: var(--lg-ink-invert) !important;
-  box-shadow: var(--lg-shadow-glow), inset 0 1px 0 var(--lg-highlight);
+  box-shadow: 0 0 20px var(--lg-brand-glow), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .header-menu-toggle {
@@ -127,6 +151,22 @@
   background: var(--lg-surface-3);
   backdrop-filter: blur(var(--lg-blur-sm));
   -webkit-backdrop-filter: blur(var(--lg-blur-sm));
+}
+
+.header-menu-toggle span {
+  transition: transform var(--lg-dur-med) var(--lg-ease-spring), opacity var(--lg-dur-fast);
+}
+
+.header-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.header-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 .site-header .dropdown-content {

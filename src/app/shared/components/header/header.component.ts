@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SanityService } from '../../../core/services/sanity.service';
 import { Team } from '../../../core/models';
@@ -10,7 +10,7 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <header class="site-header lg-glass-overlay">
+    <header class="site-header lg-glass-overlay" [class.is-scrolled]="isScrolled()">
       <div class="site-header-inner">
         <a class="header-brand" routerLink="/" (click)="closeMobileMenu()">
           <img src="/assets/img/LogoVBC.png" alt="VBC Ebikon Logo" class="header-logo" />
@@ -116,6 +116,7 @@ type TeamMenuItem = Pick<Team, '_id' | 'name' | 'slug'> & { gender?: Team['gende
 })
 export class HeaderComponent implements OnInit {
   private sanity = inject(SanityService);
+  isScrolled = signal(false);
   isMenuOpen = false;
   isTeamsOpen = false;
   isAboutOpen = false;
@@ -164,6 +165,11 @@ export class HeaderComponent implements OnInit {
     if (window.innerWidth > 1023) {
       this.closeMobileMenu();
     }
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.isScrolled.set(window.scrollY > 20);
   }
 
   toggleMobileMenu(): void {
