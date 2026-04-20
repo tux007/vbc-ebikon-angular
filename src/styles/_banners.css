@@ -21,7 +21,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s;
+  transition: color var(--lg-dur-fast) var(--lg-ease-smooth);
   z-index: 2;
   margin: 0 0.5rem;
   outline: none;
@@ -50,13 +50,13 @@
   flex: 0 0 340px;
   background: #fff;
   color: #222;
-  border-radius: 14px;
+  border-radius: var(--lg-radius-md); /* nearest token */
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(78, 84, 200, 0.1);
   padding: 1.5rem 2rem 1.2rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
   font-size: 1rem;
   position: relative;
   margin: 0.5rem 0;

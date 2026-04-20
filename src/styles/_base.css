@@ -63,8 +63,8 @@ body {
   text-decoration: none;
   font-weight: 600;
   padding: 0.55rem 0.8rem;
-  border-radius: 999px;
-  transition: background 0.22s, color 0.22s;
+  border-radius: var(--lg-radius-pill);
+  transition: background var(--lg-dur-fast) var(--lg-ease-smooth), color var(--lg-dur-fast) var(--lg-ease-smooth);
   position: relative;
 }
 
@@ -85,7 +85,7 @@ body {
   height: 46px;
   border: 1px solid rgba(78, 84, 200, 0.24);
   background: rgba(255, 255, 255, 0.75);
-  border-radius: 12px;
+  border-radius: var(--lg-radius-sm);
   padding: 0;
   align-items: center;
   justify-content: center;

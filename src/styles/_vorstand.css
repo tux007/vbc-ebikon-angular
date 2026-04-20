@@ -21,7 +21,7 @@
 
 .vorstand-viewport {
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: var(--lg-radius-md);
 }
 
 .vorstand-track {
@@ -41,7 +41,7 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: var(--lg-radius-md); /* nearest token */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
@@ -82,13 +82,13 @@
   width: 44px;
   height: 44px;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--lg-radius-pill);
   background: rgba(78, 84, 200, 0.14);
   color: #1f2937;
   font-size: 1.8rem;
   line-height: 1;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  transition: background var(--lg-dur-fast) var(--lg-ease-smooth), transform var(--lg-dur-fast) var(--lg-ease-spring);
 }
 
 .vorstand-nav-btn:hover,
