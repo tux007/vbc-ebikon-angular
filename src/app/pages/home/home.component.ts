@@ -32,45 +32,33 @@ import { SponsorCarouselComponent } from '../../shared/components/sponsor-carous
 
     <!-- Nächste Spiele -->
     <h2 class="letzte-ergebnisse-title">Nächste Spiele</h2>
-    <div class="banner-slider-container" style="justify-content: center">
+    <div class="upcoming-section">
       @if (loadingUpcoming) {
         <div class="banner-loading">
           <img src="/assets/img/volleyball-loader.png" alt="Laden…" class="banner-volleyball-spinner" />
         </div>
       } @else if (upcomingGames.length === 0) {
-        <div class="banner lg-glass" style="margin-bottom:1.5rem;">
-          <p style="text-align:center">Keine anstehenden Spiele gefunden.</p>
+        <div class="upcoming-empty lg-glass">
+          <p>Keine anstehenden Spiele gefunden.</p>
         </div>
       } @else {
-        <div class="banner lg-glass" style="margin-bottom:1.5rem; min-width:min(900px,96vw); max-width:1000px; flex:none;">
-          <div class="banner-score-sets" style="margin-bottom:1rem;">
-            <table style="width:100%; border-collapse:collapse; table-layout:fixed;">
-              <thead>
-                <tr>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:18%; font-size:0.9em;">Datum/Zeit</th>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:8%;  font-size:0.9em;">Team</th>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:18%; font-size:0.9em;">Heim</th>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:18%; font-size:0.9em;">Gast</th>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:10%; font-size:0.9em;">Liga</th>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:10%; font-size:0.9em;">Ort</th>
-                  <th style="text-align:left; padding:0.2rem 0.3rem; width:18%; font-size:0.9em;">Halle</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (g of upcomingGames; track g.teamName) {
-                  <tr>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.playDateTime }}</td>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.teamName }}</td>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.homeTeam }}</td>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.awayTeam }}</td>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.league }}</td>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.city }}</td>
-                    <td style="padding:0.2rem 0.3rem; font-size:0.85em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ g.hall }}</td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
+        <div class="upcoming-list">
+          @for (g of upcomingGames; track g.teamName + g.playDateTime) {
+            <div class="upcoming-card lg-glass lg-interactive">
+              <div class="upcoming-card__date">{{ g.playDateTime }}</div>
+              <div class="upcoming-card__teams">
+                <span class="upcoming-card__home">{{ g.homeTeam }}</span>
+                <span class="upcoming-card__vs">vs</span>
+                <span class="upcoming-card__away">{{ g.awayTeam }}</span>
+              </div>
+              <div class="upcoming-card__meta">
+                <span class="upcoming-card__league">{{ g.league }}</span>
+                <span>·</span>
+                <span>{{ g.city }}, {{ g.hall }}</span>
+              </div>
+              <div class="upcoming-card__team-badge">{{ g.teamName }}</div>
+            </div>
+          }
         </div>
       }
     </div>
