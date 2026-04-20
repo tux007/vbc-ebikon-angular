@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Angular SSR-Plugin deaktivieren (wir nutzen nur SPA, kein SSR)
+[[plugins]]
+  package = "@netlify/angular-runtime"
+  [plugins.inputs]
+    ssr = false
+
 # Sanity Studio unter /sanity-studio ausliefern
 [[redirects]]
   from = "/sanity-studio/*"
