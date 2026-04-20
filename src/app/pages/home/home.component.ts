@@ -22,7 +22,7 @@ import { SponsorCarouselComponent } from '../../shared/components/sponsor-carous
           <a href="https://www.instagram.com/vbc_ebikon/" target="_blank" rel="noopener" class="hover-underline">Instagram</a>
           folgen.
         </p>
-        <div class="hero-sub">Die aktuellen Spielergebnisse und den Spielplan findest du hier.</div>
+        <!-- <div class="hero-sub">Die aktuellen Spielergebnisse und den Spielplan findest du hier.</div> -->
       </div>
     </div>
 
