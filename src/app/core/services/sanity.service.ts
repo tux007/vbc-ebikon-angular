@@ -49,7 +49,7 @@ export class SanityService {
   }
 
   getTeam(slug: string): Observable<Team | null> {
-    return this.query(`*[_type == "team" && slug == "${slug}"][0] {_id, name, slug, description, gender, level, photo{asset->{_ref, url}}}`).pipe(
+    return this.query(`*[_type == "team" && slug.current == "${slug}"][0] {_id, name, "slug": slug.current, description, gender, level, photo{asset->{_ref, url}}}`).pipe(
       map((item: any) => item ? {
         ...item,
         photo: item.photo ? { ...item.photo, url: item.photo.asset?.url ?? this.imageUrl(item.photo.asset?._ref) } : undefined,
