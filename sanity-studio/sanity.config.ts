@@ -16,7 +16,9 @@ export default defineConfig({
   dataset: DATASET,
   plugins: [
     structureTool(),
-    visionTool(),
+    visionTool({
+      defaultApiVersion: '2024-01-01',
+    }),
   ],
   schema: {
     types: schemaTypes,
