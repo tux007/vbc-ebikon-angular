@@ -7,7 +7,7 @@ import { Sponsor } from '../../../core/models';
   template: `
     <div class="sponsoren-banner-container">
       <div class="sponsoren-banner-track">
-        <div class="sponsoren-banner-inner">
+        <div class="sponsoren-banner-inner" aria-hidden="true">
           @for (s of sponsors; track s._id) {
             <img
               [src]="s.logo?.url || '/assets/img/Sponsoren/sponsor1.jpg'"
