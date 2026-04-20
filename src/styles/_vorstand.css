@@ -1,0 +1,181 @@
+/* Vorstand page */
+.vorstand-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.vorstand-title {
+  text-align: center;
+  margin: 2rem 0;
+  margin-top: 80px;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+}
+
+.vorstand-carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.vorstand-viewport {
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.vorstand-track {
+  display: flex;
+  transition: transform 320ms ease;
+  will-change: transform;
+}
+
+.vorstand-card {
+  padding: 0.4rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+.vorstand-card-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.vorstand-card:hover .vorstand-card-photo,
+.vorstand-card:focus-within .vorstand-card-photo {
+  transform: scale(1.04);
+  box-shadow: 0 14px 34px rgba(78, 84, 200, 0.2), 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.vorstand-card-info {
+  padding: 0.9rem 0.25rem 0.2rem;
+  text-align: center;
+}
+
+.vorstand-card-info h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  color: #202124;
+}
+
+.vorstand-card-info p {
+  margin: 0.35rem 0 0;
+  font-size: 0.98rem;
+  color: #5f6368;
+}
+
+.vorstand-email {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.92rem;
+  color: #4b5563;
+  user-select: text;
+  word-break: break-word;
+}
+
+.vorstand-nav-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(78, 84, 200, 0.14);
+  color: #1f2937;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.vorstand-nav-btn:hover,
+.vorstand-nav-btn:focus {
+  background: rgba(78, 84, 200, 0.25);
+  transform: scale(1.06);
+}
+
+.vorstand-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+
+.vorstand-empty {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 699px) {
+  .vorstand-carousel {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .vorstand-nav-btn {
+    justify-self: center;
+    width: 52px;
+    height: 36px;
+    font-size: 1.5rem;
+  }
+}
+
+.vorstand-main {
+  max-width: var(--lg-container);
+}
+
+.vorstand-title {
+  color: var(--lg-ink);
+}
+
+.vorstand-viewport {
+  background: linear-gradient(150deg, var(--lg-surface-2), var(--lg-surface-1));
+  border: 1px solid var(--lg-border);
+  border-radius: var(--lg-radius-md);
+  box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
+  backdrop-filter: blur(var(--lg-blur-lg));
+  -webkit-backdrop-filter: blur(var(--lg-blur-lg));
+}
+
+.vorstand-track {
+  transition: transform var(--lg-dur-med) var(--lg-ease-smooth);
+}
+
+.vorstand-card {
+  border-radius: var(--lg-radius-md);
+  background: linear-gradient(150deg, var(--lg-surface-2), var(--lg-surface-1));
+  border: 1px solid var(--lg-border-soft);
+  backdrop-filter: blur(var(--lg-blur-sm));
+  -webkit-backdrop-filter: blur(var(--lg-blur-sm));
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring);
+}
+
+.vorstand-card-photo {
+  border-radius: var(--lg-radius-md);
+  box-shadow: var(--lg-shadow-sm);
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
+}
+
+.vorstand-card:hover .vorstand-card-photo,
+.vorstand-card:focus-within .vorstand-card-photo {
+  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow);
+}
+
+.vorstand-card-info h2 {
+  color: var(--lg-ink);
+}
+
+.vorstand-card-info p,
+.vorstand-email {
+  color: var(--lg-ink-soft);
+}
+
+.vorstand-nav-btn {
+  border-radius: var(--lg-radius-pill);
+  background: rgba(74, 109, 255, 0.14);
+  transition: background var(--lg-dur-fast) var(--lg-ease-smooth), transform var(--lg-dur-fast) var(--lg-ease-spring);
+}
+

@@ -1,0 +1,285 @@
+/* Banner Slider */
+.banner-slider-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 2rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.banner-arrow {
+  background: none;
+  color: #222;
+  border: none;
+  width: 36px;
+  height: 48px;
+  font-size: 2.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  z-index: 2;
+  margin: 0 0.5rem;
+  outline: none;
+}
+
+.banner-arrow:hover:not(:disabled) {
+  color: #4e54c8;
+}
+
+.banner-arrow:disabled {
+  color: #bbb;
+  cursor: not-allowed;
+}
+
+.banner-slider {
+  display: flex;
+  gap: 1.5rem;
+  overflow: visible;
+  width: auto;
+  justify-content: center;
+}
+
+.banner {
+  min-width: 340px;
+  max-width: 370px;
+  flex: 0 0 340px;
+  background: #fff;
+  color: #222;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(78, 84, 200, 0.1);
+  padding: 1.5rem 2rem 1.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 1rem;
+  position: relative;
+  margin: 0.5rem 0;
+}
+
+.banner:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(78, 84, 200, 0.18), 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.banner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+}
+
+.banner-date {
+  font-size: 1.05rem;
+  color: #6b6b6b;
+  font-weight: 500;
+}
+
+.banner-location {
+  font-size: 1.05rem;
+  color: #6b6b6b;
+  font-weight: 500;
+  text-align: right;
+}
+
+.banner-score-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+  gap: 2.5rem;
+  min-height: 4.2rem;
+}
+
+.banner-score-main {
+  display: flex;
+  align-items: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #444;
+  letter-spacing: 2px;
+  min-width: 90px;
+}
+
+.banner-score-main span {
+  display: inline-block;
+  min-width: 28px;
+  text-align: center;
+}
+
+.banner-score-main .bold {
+  color: #222;
+  font-weight: 800;
+}
+
+.banner-score-sets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+  color: #444;
+  gap: 0.2rem;
+  min-width: 60px;
+}
+
+.banner-teams-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.1rem;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.2rem;
+}
+
+.banner-team {
+  display: flex;
+  align-items: center;
+  font-size: 0.92rem;
+  font-weight: 500;
+  gap: 0.5rem;
+  line-height: 1.2;
+  word-break: break-word;
+  max-width: 48%;
+}
+
+.banner-team.home {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.banner-team.away {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.banner-team-logo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  margin: 0 0.2rem;
+}
+
+.banner-league {
+  font-size: 1.02rem;
+  color: #888;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+.banner-teamname {
+  font-size: 1.02rem;
+  color: #888;
+  margin-top: 0.5rem;
+  text-align: right;
+  font-style: italic;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .banner-slider { gap: 1rem; }
+  .banner { min-width: 220px; max-width: 240px; flex: 0 0 220px; font-size: 0.85rem; padding: 1rem 0.7rem; }
+  .banner-score-main { font-size: 1.3rem; min-width: 60px; }
+  .banner-team { font-size: 0.85rem; }
+  .banner-team-logo { width: 16px; height: 16px; }
+}
+
+@media (max-width: 600px) {
+  .banner { min-width: 120px; max-width: 140px; flex: 0 0 120px; font-size: 0.75rem; padding: 0.7rem 0.2rem; }
+  .banner-score-main { font-size: 1rem; min-width: 36px; }
+  .banner-team { font-size: 0.75rem; }
+  .banner-team-logo { width: 12px; height: 12px; }
+}
+
+/* Banner Loading Spinner */
+.banner-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  width: 100%;
+}
+
+.banner-volleyball-spinner {
+  width: 54px;
+  height: 54px;
+  animation: volleyball-spin 1s linear infinite;
+  display: block;
+}
+
+@keyframes volleyball-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.letzte-ergebnisse-title {
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 1.2rem;
+  font-size: 2rem;
+  font-weight: 500;
+  color: #222;
+}
+
+.banner-arrow {
+  border-radius: var(--lg-radius-pill);
+  color: var(--lg-ink);
+  border: 1px solid var(--lg-border);
+  background: var(--lg-surface-2);
+  backdrop-filter: blur(var(--lg-blur-sm));
+  -webkit-backdrop-filter: blur(var(--lg-blur-sm));
+  transition:
+    color var(--lg-dur-fast) var(--lg-ease-smooth),
+    background var(--lg-dur-fast) var(--lg-ease-smooth),
+    transform var(--lg-dur-fast) var(--lg-ease-spring);
+}
+
+.banner-arrow:hover:not(:disabled) {
+  color: var(--lg-ink-invert);
+  background: var(--lg-brand-grad);
+}
+
+.banner {
+  background: linear-gradient(155deg, var(--lg-surface-3), var(--lg-surface-2));
+  border: 1px solid var(--lg-border);
+  border-radius: var(--lg-radius-md);
+  box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
+  backdrop-filter: blur(var(--lg-blur-md));
+  -webkit-backdrop-filter: blur(var(--lg-blur-md));
+  color: var(--lg-ink);
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
+}
+
+.banner:hover {
+  box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow);
+}
+
+.banner-date,
+.banner-location,
+.banner-league,
+.banner-teamname,
+.banner-score-sets {
+  color: var(--lg-ink-soft);
+}
+
+.banner table th {
+  background: rgba(74, 109, 255, 0.1);
+  color: #294370;
+}
+
+.banner table td {
+  color: #445c82;
+}
+
+.letzte-ergebnisse-title {
+  color: var(--lg-ink);
+}
+

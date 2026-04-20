@@ -1,0 +1,53 @@
+.lg-surface-subtle,
+.lg-surface-default,
+.lg-surface-strong,
+.lg-surface-navbar {
+	border: 1px solid var(--lg-border);
+	box-shadow: var(--lg-shadow-md);
+	position: relative;
+}
+
+.lg-surface-subtle::before,
+.lg-surface-default::before,
+.lg-surface-strong::before,
+.lg-surface-navbar::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	box-shadow: inset 0 1px 0 var(--lg-highlight);
+	pointer-events: none;
+}
+
+.lg-surface-subtle {
+	background: var(--lg-surface-1);
+	backdrop-filter: blur(var(--lg-blur-sm));
+	-webkit-backdrop-filter: blur(var(--lg-blur-sm));
+}
+
+.lg-surface-default {
+	background: var(--lg-surface-2);
+	backdrop-filter: blur(var(--lg-blur-md));
+	-webkit-backdrop-filter: blur(var(--lg-blur-md));
+}
+
+.lg-surface-strong {
+	background: var(--lg-surface-3);
+	backdrop-filter: blur(var(--lg-blur-lg));
+	-webkit-backdrop-filter: blur(var(--lg-blur-lg));
+}
+
+.lg-surface-navbar {
+	background: var(--lg-surface-4);
+	backdrop-filter: blur(var(--lg-blur-lg));
+	-webkit-backdrop-filter: blur(var(--lg-blur-lg));
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+	.lg-surface-subtle,
+	.lg-surface-default,
+	.lg-surface-strong,
+	.lg-surface-navbar {
+		background: rgb(245, 249, 255);
+	}
+}

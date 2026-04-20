@@ -1,0 +1,54 @@
+.static-page-main {
+	width: var(--lg-container-sm);
+	margin: 0 auto;
+	padding: 0.6rem 0 0;
+	border-radius: var(--lg-radius-lg);
+	background: linear-gradient(150deg, var(--lg-surface-2), var(--lg-surface-1));
+	border: 1px solid var(--lg-border);
+	box-shadow: var(--lg-shadow-md), inset 0 1px 0 var(--lg-highlight);
+	backdrop-filter: blur(var(--lg-blur-md));
+	-webkit-backdrop-filter: blur(var(--lg-blur-md));
+	padding-inline: clamp(0.9rem, 2.2vw, 1.5rem);
+}
+
+.static-page-title {
+	margin: 0 0 1.4rem;
+	color: var(--lg-ink);
+	font-size: clamp(2rem, 4vw, 2.65rem);
+	letter-spacing: 0.01em;
+}
+
+.static-page-text,
+.static-page-empty {
+	color: #3c5276;
+	line-height: 1.72;
+	margin: 0 0 0.85rem;
+}
+
+.static-page-subtitle {
+	margin: 1.8rem 0 0.8rem;
+	color: #4b6388;
+}
+
+.static-page-doc-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.static-page-doc-item {
+	margin-bottom: 0.55rem;
+}
+
+.static-page-doc-link {
+	color: #1f66ba;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.static-page-doc-link:hover,
+.static-page-doc-link:focus {
+	color: #1f66ba;
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}

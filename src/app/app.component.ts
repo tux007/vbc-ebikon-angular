@@ -18,7 +18,6 @@ import { FooterComponent } from './shared/components/footer/footer.component';
       ></iframe>
     }
   `,
-  styleUrl: './app.component.css',
 })
 export class AppComponent {
   easterEggOpen = false;
