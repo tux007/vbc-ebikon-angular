@@ -16,18 +16,28 @@ import { Sponsor } from '../../core/models';
         </div>
         <div class="sponsoren-grid">
           @for (s of sponsors; track s._id) {
-            <a
-              [href]="s.url || '#'"
-              target="_blank"
-              rel="noopener"
-              class="sponsoren-kachel-link"
-            >
-              <img
-                [src]="s.logo?.url"
-                [alt]="s.name"
-                class="sponsoren-kachel-logo"
-              />
-            </a>
+            @if (s.url) {
+              <a
+                [href]="s.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="sponsoren-kachel-link"
+              >
+                <img
+                  [src]="s.logo?.url"
+                  [alt]="s.name"
+                  class="sponsoren-kachel-logo"
+                />
+              </a>
+            } @else {
+              <div class="sponsoren-kachel-link" aria-disabled="true">
+                <img
+                  [src]="s.logo?.url"
+                  [alt]="s.name"
+                  class="sponsoren-kachel-logo"
+                />
+              </div>
+            }
           }
           @if (loading) {
             <div class="banner-loading" style="grid-column:span 2">
