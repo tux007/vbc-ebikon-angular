@@ -64,7 +64,24 @@ export class SanityService {
   }
 
   getAnnualProgram(): Observable<AnnualProgramPage | null> {
-    return this.query(`*[_type == "page" && slug == "jahresprogramm"][0] {_id, title, slug, body, programYear, "annualProgramEvents": annualProgramEvents|order(startDate asc){_key, startDate, endDate, description, category}}`);
+    return this.query(`coalesce(
+      *[_type == "annualProgram"][0]{
+        _id,
+        title,
+        "slug": "jahresprogramm",
+        body,
+        programYear,
+        "annualProgramEvents": events|order(startDate asc){_key, startDate, endDate, description, category}
+      },
+      *[_type == "page" && slug == "jahresprogramm"][0]{
+        _id,
+        title,
+        slug,
+        body,
+        programYear,
+        "annualProgramEvents": annualProgramEvents|order(startDate asc){_key, startDate, endDate, description, category}
+      }
+    )`);
   }
 
   getPage(slug: string): Observable<StaticPage | null> {
