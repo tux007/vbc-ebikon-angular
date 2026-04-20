@@ -190,6 +190,16 @@
 
 }
 
+@media (max-width: 768px) {
+	.lg-glass,
+	.lg-glass-strong,
+	.lg-glass-subtle,
+	.lg-glass-overlay {
+		backdrop-filter: blur(var(--lg-blur-sm)) saturate(160%);
+		-webkit-backdrop-filter: blur(var(--lg-blur-sm)) saturate(160%);
+	}
+}
+
 /* Reduced motion */
 
 @media (prefers-reduced-motion: reduce) {

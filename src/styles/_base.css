@@ -169,11 +169,48 @@ html {
 body {
   font-family: 'Segoe UI', 'Inter', sans-serif;
   color: var(--lg-ink);
+  position: relative;
+  isolation: isolate;
   background:
     radial-gradient(1200px circle at -12% -15%, var(--lg-bg-blob-1), transparent 50%),
     radial-gradient(920px circle at 112% 0%, var(--lg-bg-blob-2), transparent 45%),
     radial-gradient(780px circle at 50% 110%, var(--lg-bg-blob-3), transparent 54%),
     var(--lg-bg-base);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -16% -12% auto;
+    height: 60vh;
+    pointer-events: none;
+    z-index: -1;
+    background:
+      radial-gradient(720px circle at 18% 40%, var(--lg-bg-blob-1), transparent 62%),
+      radial-gradient(650px circle at 78% 28%, var(--lg-bg-blob-2), transparent 60%),
+      radial-gradient(620px circle at 48% 74%, var(--lg-bg-blob-3), transparent 64%);
+    animation: lg-mesh-drift 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes lg-mesh-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(0, 2.2%, 0) scale(1.06);
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--lg-brand-1);
+  outline-offset: 3px;
+  border-radius: var(--lg-radius-sm);
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }
 
 ::selection {
