@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { VolleyballApiService } from '../../core/services/volleyball-api.service';
 import { SanityService } from '../../core/services/sanity.service';
 import { GameResult, UpcomingGame, Sponsor } from '../../core/models';
@@ -7,21 +8,24 @@ import { SponsorCarouselComponent } from '../../shared/components/sponsor-carous
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SponsorCarouselComponent],
+  imports: [SponsorCarouselComponent, RouterLink],
   template: `
     <!-- Hero -->
     <div class="hero-bg">
       <div class="hero-center-content">
-        <div class="animate one">
-          <span>V</span><span>o</span><span>l</span><span>l</span><span>e</span><span>y</span><span>b</span><span>a</span><span>l</span><span>l</span><span>c</span><span>l</span><span>u</span><span>b</span>&nbsp;<span>E</span><span>b</span><span>i</span><span>k</span><span>o</span><span>n</span>
+        <div class="hero-glass-panel lg-glass">
+          <h1 class="hero-title">Volleyballclub Ebikon</h1>
+          <p>
+            Hallo zusammen und herzlich willkommen auf dem Internetauftritt des VBC Ebikon.<br />
+            Falls du gerne mit News, Matchberichten und Bildern versorgt wirst,
+            kannst du uns auch gerne auf
+            <a href="https://www.instagram.com/vbc_ebikon/" target="_blank" rel="noopener" class="hover-underline">Instagram</a>
+            folgen.
+          </p>
+          <a routerLink="/teams/damen-1" class="lg-btn lg-btn--primary" style="margin-top: 1.2rem">
+            Unsere Teams entdecken
+          </a>
         </div>
-        <p class="lg-glass">
-          Hallo zusammen und herzlich willkommen auf dem Internetauftritt des VBC Ebikon.<br />
-          Falls du gerne mit News, Matchberichten und Bildern versorgt wirst,
-          kannst du uns auch gerne auf
-          <a href="https://www.instagram.com/vbc_ebikon/" target="_blank" rel="noopener" class="hover-underline">Instagram</a>
-          folgen.
-        </p>
         <!-- <div class="hero-sub">Die aktuellen Spielergebnisse und den Spielplan findest du hier.</div> -->
       </div>
     </div>
