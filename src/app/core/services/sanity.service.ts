@@ -57,6 +57,12 @@ export class SanityService {
     );
   }
 
+  getTeams(): Observable<Team[]> {
+    return this.query(`*[_type == "team" && defined(slug.current)] | order(name asc) {_id, name, "slug": slug.current, gender, level}`).pipe(
+      map((items: any[]) => items.filter(t => t?.slug))
+    );
+  }
+
   getPage(slug: string): Observable<StaticPage | null> {
     return this.query(`*[_type == "page" && slug == "${slug}"][0] {_id, title, slug, body, documents[]{_key, title, file{asset->{url}}}}`);
   }
