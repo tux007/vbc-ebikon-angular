@@ -1,15 +1,18 @@
 /* Vorstand page */
 .vorstand-main {
-  max-width: 1200px;
+  max-width: var(--lg-container);
   margin: 0 auto;
-  padding: 2rem 1rem 3rem;
+  padding: 6rem 1rem 4rem;
 }
 
 .vorstand-title {
   text-align: center;
   margin: 2rem 0;
-  margin-top: 80px;
   font-size: clamp(2rem, 4.2vw, 3rem);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 .vorstand-carousel {
@@ -19,20 +22,18 @@
   gap: 0.75rem;
 }
 
-.vorstand-viewport {
-  overflow: hidden;
-}
+.vorstand-viewport { overflow: hidden; }
 
 .vorstand-track {
   display: flex;
-  transition: transform 320ms ease;
+  transition: transform var(--lg-dur-med) var(--lg-ease-smooth);
   will-change: transform;
 }
 
 .vorstand-card {
   padding: 0.4rem;
   box-sizing: border-box;
-  transition: transform 0.2s ease;
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring);
 }
 
 .vorstand-card-photo {
@@ -40,39 +41,36 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  border-radius: var(--lg-radius-md); /* nearest token */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  border-radius: var(--radius);
+  box-shadow: var(--lg-shadow-sm);
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
 }
-
 .vorstand-card:hover .vorstand-card-photo,
 .vorstand-card:focus-within .vorstand-card-photo {
   transform: scale(1.04);
-  box-shadow: 0 14px 34px rgba(78, 84, 200, 0.2), 0 6px 18px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow);
 }
 
 .vorstand-card-info {
   padding: 0.9rem 0.25rem 0.2rem;
   text-align: center;
 }
-
 .vorstand-card-info h2 {
   margin: 0;
   font-size: 1.08rem;
-  color: #202124;
+  color: var(--fg);
+  font-weight: 500;
 }
-
 .vorstand-card-info p {
   margin: 0.35rem 0 0;
   font-size: 0.98rem;
-  color: #5f6368;
+  color: var(--fg-dim);
 }
-
 .vorstand-email {
   display: block;
   margin-top: 0.35rem;
   font-size: 0.92rem;
-  color: #4b5563;
+  color: var(--accent);
   user-select: text;
   word-break: break-word;
 }
@@ -80,22 +78,21 @@
 .vorstand-nav-btn {
   width: 44px;
   height: 44px;
-  border: none;
-  border-radius: var(--lg-radius-pill);
-  background: rgba(78, 84, 200, 0.14);
-  color: #1f2937;
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  background: var(--glass-bg);
+  color: var(--fg);
   font-size: 1.8rem;
   line-height: 1;
   cursor: pointer;
   transition: background var(--lg-dur-fast) var(--lg-ease-smooth), transform var(--lg-dur-fast) var(--lg-ease-spring);
+  backdrop-filter: blur(var(--glass-blur));
 }
-
 .vorstand-nav-btn:hover,
 .vorstand-nav-btn:focus {
-  background: rgba(78, 84, 200, 0.25);
+  background: var(--glass-bg-strong);
   transform: scale(1.06);
 }
-
 .vorstand-nav-btn:disabled {
   opacity: 0.35;
   cursor: default;
@@ -104,7 +101,7 @@
 
 .vorstand-empty {
   text-align: center;
-  color: #6b7280;
+  color: var(--fg-faint);
   margin-top: 1.4rem;
 }
 
@@ -113,7 +110,6 @@
     grid-template-columns: 1fr;
     gap: 0.65rem;
   }
-
   .vorstand-nav-btn {
     justify-self: center;
     width: 52px;
@@ -121,49 +117,3 @@
     font-size: 1.5rem;
   }
 }
-
-.vorstand-main {
-  max-width: var(--lg-container);
-}
-
-.vorstand-title {
-  color: var(--lg-ink);
-}
-
-.vorstand-viewport {
-}
-
-.vorstand-track {
-  transition: transform var(--lg-dur-med) var(--lg-ease-smooth);
-}
-
-.vorstand-card {
-  transition: transform var(--lg-dur-fast) var(--lg-ease-spring);
-}
-
-.vorstand-card-photo {
-  border-radius: var(--lg-radius-md);
-  box-shadow: var(--lg-shadow-sm);
-  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
-}
-
-.vorstand-card:hover .vorstand-card-photo,
-.vorstand-card:focus-within .vorstand-card-photo {
-  box-shadow: var(--lg-shadow-md), var(--lg-shadow-glow);
-}
-
-.vorstand-card-info h2 {
-  color: var(--lg-ink);
-}
-
-.vorstand-card-info p,
-.vorstand-email {
-  color: var(--lg-ink-soft);
-}
-
-.vorstand-nav-btn {
-  border-radius: var(--lg-radius-pill);
-  background: rgba(74, 109, 255, 0.14);
-  transition: background var(--lg-dur-fast) var(--lg-ease-smooth), transform var(--lg-dur-fast) var(--lg-ease-spring);
-}
-

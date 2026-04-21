@@ -1,48 +1,53 @@
 .static-page-main {
-	width: var(--lg-container-sm);
-	margin: 0 auto;
-	padding: 0.6rem 0 0;
-	padding-inline: clamp(0.9rem, 2.2vw, 1.5rem);
+  width: var(--lg-container-sm);
+  margin: 0 auto;
+  padding: 6rem 0 4rem;
+  padding-inline: clamp(0.9rem, 2.2vw, 1.5rem);
 }
 
 .static-page-title {
-	margin: 0 0 1.4rem;
-	color: var(--lg-ink);
-	font-size: clamp(2rem, 4vw, 2.65rem);
-	letter-spacing: 0.01em;
+  margin: 0 0 1.4rem;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.02em;
+  font-weight: 400;
 }
 
 .static-page-text,
 .static-page-empty {
-	color: #3c5276;
-	line-height: 1.72;
-	margin: 0 0 0.85rem;
+  color: var(--fg-dim);
+  line-height: 1.72;
+  margin: 0 0 0.85rem;
 }
 
 .static-page-subtitle {
-	margin: 1.8rem 0 0.8rem;
-	color: #4b6388;
+  margin: 1.8rem 0 0.8rem;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
 }
 
 .static-page-doc-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .static-page-doc-item {
-	margin-bottom: 0.55rem;
+  margin-bottom: 0.55rem;
 }
 
 .static-page-doc-link {
-	color: #1f66ba;
-	text-decoration: none;
-	font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
 }
-
 .static-page-doc-link:hover,
 .static-page-doc-link:focus {
-	color: #1f66ba;
-	text-decoration: underline;
-	text-underline-offset: 4px;
+  opacity: 0.8;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }

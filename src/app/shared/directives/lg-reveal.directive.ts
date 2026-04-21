@@ -11,7 +11,7 @@ export class LgRevealDirective implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     if (typeof IntersectionObserver === 'undefined') {
-      this.el.nativeElement.classList.add('is-visible');
+      this.el.nativeElement.classList.add('is-visible', 'in');
       return;
     }
 
@@ -19,7 +19,7 @@ export class LgRevealDirective implements AfterViewInit, OnDestroy {
       entries => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            this.el.nativeElement.classList.add('is-visible');
+            this.el.nativeElement.classList.add('is-visible', 'in');
             this.observer?.unobserve(this.el.nativeElement);
           }
         }

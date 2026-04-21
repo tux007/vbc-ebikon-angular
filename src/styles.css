@@ -1,12 +1,12 @@
 @import './styles/_tokens.css';
 @import './styles/_base.css';
 @import './styles/_glass.css';
+@import './styles/_utilities.css';
 @import './styles/_header.css';
 @import './styles/_footer.css';
-@import './styles/_hero.css';
+@import './styles/_home.css';
 @import './styles/_banners.css';
 @import './styles/_vorstand.css';
 @import './styles/_sponsoren.css';
 @import './styles/_team.css';
 @import './styles/_static-pages.css';
-@import './styles/_utilities.css';

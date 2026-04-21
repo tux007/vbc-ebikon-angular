@@ -1,219 +1,126 @@
-/* Base Glass-Flache (extends via selector list) */
+/* === New dark glass primitive === */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  position: relative;
+  isolation: isolate;
+}
 
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glass-strong {
+  background: var(--glass-bg-strong);
+  border-color: var(--glass-border-strong);
+}
+
+/* === Legacy aliases for sub-pages === */
 .lg-glass,
-
 .lg-glass-strong,
-
 .lg-glass-subtle,
-
 .lg-glass-overlay {
-
-	position: relative;
-
-	border: 1px solid var(--lg-border);
-
-	border-radius: var(--lg-radius-lg);
-
-	box-shadow: var(--lg-shadow-md);
-
-	backdrop-filter: blur(var(--lg-blur-md)) saturate(180%);
-
-	-webkit-backdrop-filter: blur(var(--lg-blur-md)) saturate(180%);
-
-	overflow: hidden;
-
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  position: relative;
+  isolation: isolate;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
 }
+.lg-glass-strong,
+.lg-glass-overlay { background: var(--glass-bg-strong); border-color: var(--glass-border-strong); }
 
-.lg-glass-subtle   { background: linear-gradient(150deg, var(--lg-surface-1), rgba(255,255,255,0.26)); }
-
-.lg-glass         { background: linear-gradient(155deg, var(--lg-surface-2), rgba(255,255,255,0.38)); }
-
-.lg-glass-strong  { background: linear-gradient(150deg, var(--lg-surface-3), rgba(255,255,255,0.48)); backdrop-filter: blur(var(--lg-blur-lg)) saturate(180%); }
-
-.lg-glass-overlay { background: linear-gradient(150deg, var(--lg-surface-4), rgba(255,255,255,0.68)); backdrop-filter: blur(var(--lg-blur-lg)) saturate(200%); }
-
-/* Specular top-edge highlight (pseudo-element) */
-
-.lg-glass::before,
-
-.lg-glass-strong::before,
-
-.lg-glass-subtle::before,
-
-.lg-glass-overlay::before {
-
-	content: "";
-
-	position: absolute;
-
-	inset: 0 0 auto 0;
-
-	height: 42%;
-
-	background: linear-gradient(180deg, var(--lg-highlight), transparent);
-
-	pointer-events: none;
-
-	opacity: 0.55;
-
-	mix-blend-mode: overlay;
-
-}
-
-/* Interactive (Hover lift + brand-color glow) */
-
+/* === Interactive hover glow (used by directive) === */
 .lg-interactive {
-
-	transition: transform var(--lg-dur-med) var(--lg-ease-spring),
-
-							box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
-
-	cursor: pointer;
-
+  transition: transform var(--lg-dur-med) var(--lg-ease-spring), box-shadow var(--lg-dur-med) var(--lg-ease-smooth);
+  cursor: pointer;
 }
-
 .lg-interactive::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: inherit;
-	background: radial-gradient(
-		400px circle at var(--mx, 50%) var(--my, 50%),
-		var(--lg-brand-glow),
-		transparent 45%
-	);
-	opacity: 0;
-	transition: opacity var(--lg-dur-med) var(--lg-ease-smooth);
-	pointer-events: none;
-	mix-blend-mode: screen;
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 255, 255, 0.07),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity var(--lg-dur-med) var(--lg-ease-smooth);
+  pointer-events: none;
+  z-index: 2;
 }
+.lg-interactive:hover::after { opacity: 1; }
+.lg-interactive:hover { transform: translateY(-3px); box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow); }
+.lg-interactive:active { transform: translateY(-1px) scale(0.995); }
 
-.lg-interactive:hover::after {
-	opacity: 1;
-}
-
-.lg-interactive:hover,
-
-.lg-interactive:focus-visible {
-
-	transform: translateY(-3px);
-
-	box-shadow: var(--lg-shadow-lg), var(--lg-shadow-glow);
-
-}
-
-.lg-interactive:active {
-
-	transform: translateY(-1px) scale(0.995);
-
-}
-
-/* Button variants */
-
+/* === Button primitives (legacy lg-btn + new btn) === */
 .lg-btn {
-
-	display: inline-flex;
-
-	align-items: center;
-
-	justify-content: center;
-
-	gap: 0.5rem;
-
-	padding: 0.75rem 1.25rem;
-
-	border-radius: var(--lg-radius-pill);
-
-	font-weight: 600;
-
-	font-size: 0.98rem;
-
-	border: 1px solid var(--lg-border);
-
-	background: var(--lg-surface-2);
-
-	backdrop-filter: blur(var(--lg-blur-sm));
-
-	color: var(--lg-ink);
-
-	cursor: pointer;
-
-	transition: transform var(--lg-dur-fast) var(--lg-ease-spring),
-
-							box-shadow var(--lg-dur-fast) var(--lg-ease-smooth),
-
-							background var(--lg-dur-fast) var(--lg-ease-smooth);
-
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--lg-radius-pill);
+  font-weight: 600;
+  font-size: 0.98rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--lg-blur-sm));
+  color: var(--fg);
+  cursor: pointer;
+  transition: transform var(--lg-dur-fast) var(--lg-ease-spring), box-shadow var(--lg-dur-fast) var(--lg-ease-smooth);
 }
-
-.lg-btn:hover  { transform: translateY(-2px); box-shadow: var(--lg-shadow-md); }
-
+.lg-btn:hover { transform: translateY(-2px); box-shadow: var(--lg-shadow-md); }
 .lg-btn:active { transform: translateY(0) scale(0.98); }
-
-.lg-btn:focus-visible {
-
-	outline: 2px solid var(--lg-brand-1);
-
-	outline-offset: 3px;
-
-}
-
-.lg-btn--primary {
-
-	background: var(--lg-brand-grad);
-
-	color: white;
-
-	border-color: transparent;
-
-	box-shadow: var(--lg-shadow-md), 0 0 20px var(--lg-brand-glow);
-
-}
-
-.lg-btn--ghost {
-
-	background: transparent;
-
-	color: var(--lg-brand-1);
-
-}
-
-/* Fallback-Solid wenn backdrop-filter nicht unterstutzt */
+.lg-btn--primary { background: var(--fg); color: var(--bg-0); border-color: transparent; }
+.lg-btn--ghost { background: transparent; color: var(--accent); }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-
-	.lg-glass, .lg-glass-strong, .lg-glass-subtle, .lg-glass-overlay {
-
-		background: #f5f9ff;
-
-	}
-
+  .glass, .lg-glass, .lg-glass-strong, .lg-glass-subtle, .lg-glass-overlay {
+    background: rgba(20, 25, 45, 0.92);
+  }
 }
 
 @media (max-width: 768px) {
-	.lg-glass,
-	.lg-glass-strong,
-	.lg-glass-subtle,
-	.lg-glass-overlay {
-		backdrop-filter: blur(var(--lg-blur-sm)) saturate(160%);
-		-webkit-backdrop-filter: blur(var(--lg-blur-sm)) saturate(160%);
-	}
+  .glass, .lg-glass, .lg-glass-strong, .lg-glass-subtle, .lg-glass-overlay {
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+  }
 }
 
-/* Reduced motion */
-
 @media (prefers-reduced-motion: reduce) {
-
-	.lg-interactive, .lg-btn {
-
-		transition: none;
-
-	}
-
-	.lg-interactive:hover,
-
-	.lg-interactive:focus-visible,
-
-	.lg-btn:hover { transform: none; }
-
+  .lg-interactive, .lg-btn { transition: none; }
+  .lg-interactive:hover, .lg-btn:hover { transform: none; }
 }

@@ -7,26 +7,55 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   template: `
     <footer class="site-footer">
-      <div class="footer-main">
-        <div class="footer-links">
-          <h3>Rechtliches</h3>
-          <a routerLink="/impressum">Impressum</a>
-          <a routerLink="/datenschutz">Datenschutz</a>
-          <a href="#">Cookie Einstellungen</a>
-        </div>
-
-        <div class="footer-social">
-          <h3>Folge uns</h3>
-          <a href="https://www.instagram.com/vbc_ebikon/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg width="28" height="28" viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
-              <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.35-30.35C293.19,120,224,120,224,120s-69.19,0-94.36,11.31a54,54,0,0,0-30.35,30.35C88,162.81,88,224,88,224s0,69.19,11.31,94.36a54,54,0,0,0,30.35,30.35C154.81,392,224,392,224,392s69.19,0,94.36-11.31a54,54,0,0,0,30.35-30.35C360,293.19,360,224,360,224S360,154.81,348.71,161.66ZM224,338a82,82,0,1,1,82-82A82,82,0,0,1,224,338Zm85.4-148.6a19.2,19.2,0,1,1-19.2-19.2A19.2,19.2,0,0,1,309.4,189.4Z"/>
+      <div class="footer-brand-col">
+        <div class="footer-brand">
+          <span class="footer-brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="32" height="32">
+              <defs>
+                <radialGradient id="fbmark" cx="30%" cy="30%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+                  <stop offset="100%" stop-color="oklch(0.78 0.16 28)" stop-opacity="0.8"/>
+                </radialGradient>
+              </defs>
+              <circle cx="24" cy="24" r="20" fill="url(#fbmark)"/>
+              <path d="M24 4 C 14 14, 14 34, 24 44" stroke="rgba(0,0,0,0.35)" fill="none" stroke-width="1.2"/>
+              <path d="M24 4 C 34 14, 34 34, 24 44" stroke="rgba(0,0,0,0.35)" fill="none" stroke-width="1.2"/>
+              <path d="M4 24 C 14 14, 34 14, 44 24" stroke="rgba(0,0,0,0.35)" fill="none" stroke-width="1.2"/>
+              <path d="M4 24 C 14 34, 34 34, 44 24" stroke="rgba(0,0,0,0.35)" fill="none" stroke-width="1.2"/>
             </svg>
-            Instagram
-          </a>
+          </span>
+          VBC Ebikon
         </div>
+        <div class="footer-motto">Seit 1974 am Netz. Willkommen in der Familie.</div>
       </div>
-      <div class="footer-bottom">
-        <span>© {{ currentYear }} VBC Ebikon</span>
+
+      <div class="footer-col">
+        <h4>Verein</h4>
+        <a routerLink="/ueber-uns/vorstand">Vorstand</a>
+        <a routerLink="/ueber-uns/jahresprogramm">Jahresprogramm</a>
+        <a routerLink="/ueber-uns/dokumente">Dokumente</a>
+        <a routerLink="/sponsoren">Sponsoren</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sport</h4>
+        <a routerLink="/teams/herren-1">Herren 1</a>
+        <a routerLink="/teams/damen-1">Damen 1</a>
+        <a routerLink="/ueber-uns/hallen">Hallen</a>
+        <a routerLink="/volleyballlager">Volleyballlager</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <a href="mailto:info@vbc-ebikon.ch">info&#64;vbc-ebikon.ch</a>
+        <a href="https://www.instagram.com/vbc_ebikon/" target="_blank" rel="noopener">Instagram</a>
+        <a routerLink="/kontakt">Kontaktformular</a>
+        <a routerLink="/impressum">Impressum</a>
+      </div>
+
+      <div class="footer-legal">
+        <span>© {{ currentYear }} Volleyballclub Ebikon</span>
+        <span>Swiss Volley · Region Innerschweiz</span>
       </div>
     </footer>
   `,
