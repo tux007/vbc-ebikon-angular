@@ -52,13 +52,13 @@
 
 .hero-title .letter {
   display: inline-block;
+  opacity: 0;
+  transform: translateY(22px);
 }
 
 .hero-title.animate.one .letter {
   display: inline-block;
-  opacity: 0;
-  transform: translateX(-180px);
-  animation: heroLetterFlyIn 520ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: heroLetterFlyIn 580ms cubic-bezier(0.22, 0.9, 0.24, 1) both;
 }
 
 .hero-title.animate.one .letter.space {
@@ -67,27 +67,27 @@
   transform: none;
 }
 
-.hero-title.animate.one .letter:nth-child(1)  { animation-delay: 0ms; }
-.hero-title.animate.one .letter:nth-child(2)  { animation-delay: 50ms; }
-.hero-title.animate.one .letter:nth-child(3)  { animation-delay: 100ms; }
-.hero-title.animate.one .letter:nth-child(4)  { animation-delay: 150ms; }
-.hero-title.animate.one .letter:nth-child(5)  { animation-delay: 200ms; }
-.hero-title.animate.one .letter:nth-child(6)  { animation-delay: 250ms; }
-.hero-title.animate.one .letter:nth-child(7)  { animation-delay: 300ms; }
-.hero-title.animate.one .letter:nth-child(8)  { animation-delay: 350ms; }
-.hero-title.animate.one .letter:nth-child(9)  { animation-delay: 400ms; }
-.hero-title.animate.one .letter:nth-child(10) { animation-delay: 450ms; }
-.hero-title.animate.one .letter:nth-child(11) { animation-delay: 500ms; }
-.hero-title.animate.one .letter:nth-child(12) { animation-delay: 550ms; }
-.hero-title.animate.one .letter:nth-child(13) { animation-delay: 600ms; }
-.hero-title.animate.one .letter:nth-child(14) { animation-delay: 650ms; }
-.hero-title.animate.one .letter:nth-child(15) { animation-delay: 0ms; }
-.hero-title.animate.one .letter:nth-child(16) { animation-delay: 700ms; }
-.hero-title.animate.one .letter:nth-child(17) { animation-delay: 750ms; }
-.hero-title.animate.one .letter:nth-child(18) { animation-delay: 800ms; }
-.hero-title.animate.one .letter:nth-child(19) { animation-delay: 850ms; }
-.hero-title.animate.one .letter:nth-child(20) { animation-delay: 900ms; }
-.hero-title.animate.one .letter:nth-child(21) { animation-delay: 950ms; }
+.hero-title.animate.one .letter:nth-child(1)  { animation-delay:  80ms; }
+.hero-title.animate.one .letter:nth-child(2)  { animation-delay: 130ms; }
+.hero-title.animate.one .letter:nth-child(3)  { animation-delay: 180ms; }
+.hero-title.animate.one .letter:nth-child(4)  { animation-delay: 230ms; }
+.hero-title.animate.one .letter:nth-child(5)  { animation-delay: 280ms; }
+.hero-title.animate.one .letter:nth-child(6)  { animation-delay: 330ms; }
+.hero-title.animate.one .letter:nth-child(7)  { animation-delay: 380ms; }
+.hero-title.animate.one .letter:nth-child(8)  { animation-delay: 430ms; }
+.hero-title.animate.one .letter:nth-child(9)  { animation-delay: 480ms; }
+.hero-title.animate.one .letter:nth-child(10) { animation-delay: 530ms; }
+.hero-title.animate.one .letter:nth-child(11) { animation-delay: 580ms; }
+.hero-title.animate.one .letter:nth-child(12) { animation-delay: 630ms; }
+.hero-title.animate.one .letter:nth-child(13) { animation-delay: 680ms; }
+.hero-title.animate.one .letter:nth-child(14) { animation-delay: 730ms; }
+.hero-title.animate.one .letter:nth-child(15) { animation-delay:   0ms; }
+.hero-title.animate.one .letter:nth-child(16) { animation-delay: 800ms; }
+.hero-title.animate.one .letter:nth-child(17) { animation-delay: 850ms; }
+.hero-title.animate.one .letter:nth-child(18) { animation-delay: 900ms; }
+.hero-title.animate.one .letter:nth-child(19) { animation-delay: 950ms; }
+.hero-title.animate.one .letter:nth-child(20) { animation-delay:1000ms; }
+.hero-title.animate.one .letter:nth-child(21) { animation-delay:1050ms; }
 
 .hero-center-content p {
   color: rgba(34, 55, 97, 0.9);
@@ -95,18 +95,8 @@
 }
 
 @keyframes heroLetterFlyIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-180px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateX(14px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0%   { opacity: 0; transform: translateY(22px); }
+  100% { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { VolleyballApiService } from '../../core/services/volleyball-api.service';
 import { SanityService } from '../../core/services/sanity.service';
 import { GameResult, UpcomingGame, Sponsor } from '../../core/models';
@@ -16,7 +16,10 @@ import { LgRevealDirective } from '../../shared/directives/lg-reveal.directive';
       <div class="hero-bg">
         <div class="hero-center-content">
           <div class="hero-glass-panel lg-glass-subtle">
-            <h1 class="hero-title animate one">
+            <h1
+              class="hero-title one"
+              [class.animate]="heroAnimate"
+            >
               <span class="letter">V</span><span class="letter">o</span><span class="letter">l</span><span class="letter">l</span><span class="letter">e</span><span class="letter">y</span><span class="letter">b</span><span class="letter">a</span><span class="letter">l</span><span class="letter">l</span><span class="letter">c</span><span class="letter">l</span><span class="letter">u</span><span class="letter">b</span>
               <span class="letter space">&nbsp;</span>
               <span class="letter">E</span><span class="letter">b</span><span class="letter">i</span><span class="letter">k</span><span class="letter">o</span><span class="letter">n</span>
@@ -122,7 +125,7 @@ import { LgRevealDirective } from '../../shared/directives/lg-reveal.directive';
     </main>
   `,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   private volleyballApi = inject(VolleyballApiService);
   private sanity = inject(SanityService);
 
@@ -131,6 +134,7 @@ export class HomeComponent implements OnInit {
   sponsors: Sponsor[] = [];
   loadingResults = true;
   loadingUpcoming = true;
+  heroAnimate = false;
   bannerStart = 0;
   readonly bannersToShow = 3;
 
@@ -152,6 +156,10 @@ export class HomeComponent implements OnInit {
       this.loadingUpcoming = false;
     });
     this.sanity.getSponsors().subscribe(s => (this.sponsors = s));
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => { this.heroAnimate = true; }, 120);
   }
 
   prevBanner(): void {
