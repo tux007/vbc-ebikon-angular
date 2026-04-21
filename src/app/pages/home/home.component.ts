@@ -16,7 +16,11 @@ import { LgRevealDirective } from '../../shared/directives/lg-reveal.directive';
       <div class="hero-bg">
         <div class="hero-center-content">
           <div class="hero-glass-panel lg-glass-subtle">
-            <h1 class="hero-title">Volleyballclub Ebikon</h1>
+            <h1 class="hero-title animate one">
+              <span class="letter">V</span><span class="letter">o</span><span class="letter">l</span><span class="letter">l</span><span class="letter">e</span><span class="letter">y</span><span class="letter">b</span><span class="letter">a</span><span class="letter">l</span><span class="letter">l</span><span class="letter">c</span><span class="letter">l</span><span class="letter">u</span><span class="letter">b</span>
+              <span class="letter space">&nbsp;</span>
+              <span class="letter">E</span><span class="letter">b</span><span class="letter">i</span><span class="letter">k</span><span class="letter">o</span><span class="letter">n</span>
+            </h1>
             <p>
               Hallo zusammen und herzlich willkommen auf dem Internetauftritt des VBC Ebikon.<br />
               Falls du gerne mit News, Matchberichten und Bildern versorgt wirst,
