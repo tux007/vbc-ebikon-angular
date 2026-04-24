@@ -486,27 +486,43 @@
 }
 
 .training-schedule { padding: 32px; overflow: hidden; }
+.training-loading { opacity: 0.4; font-size: 13px; padding: 16px 0; }
+
+.training-day-header {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 20px 0 8px;
+  border-top: 1px solid var(--glass-border);
+}
+.training-day-header:first-child { padding-top: 0; border-top: none; }
+
 .training-row {
   display: grid;
-  grid-template-columns: 64px 1fr auto;
+  grid-template-columns: 1fr 1fr auto;
   gap: 16px;
   align-items: center;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--glass-border);
+  padding: 12px 0;
   font-size: 15px;
   transition: padding-left 0.3s ease, color 0.3s ease;
 }
-.training-row:last-child { border-bottom: none; }
 .training-row:hover { padding-left: 8px; color: var(--accent); }
-.training-row .day {
+.training-row .team { font-weight: 500; }
+.training-row .location {
   font-family: var(--font-mono);
   font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--fg-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.training-row .team { font-weight: 500; }
-.training-row .time { font-family: var(--font-mono); font-size: 13px; color: var(--fg-dim); }
+.training-row .time { font-family: var(--font-mono); font-size: 13px; color: var(--fg-dim); text-align: right; }
+@media (max-width: 600px) {
+  .training-row { grid-template-columns: 1fr auto; padding-left: 0; }
+  .training-row .location { display: none; }
+}
 
 .training-halls {
   display: grid;

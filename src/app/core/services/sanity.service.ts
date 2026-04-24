@@ -63,6 +63,12 @@ export class SanityService {
     );
   }
 
+  getTeamsWithTraining(): Observable<Team[]> {
+    return this.query(`*[_type == "team" && defined(slug.current)] | order(name asc) {_id, name, "slug": slug.current, trainingTimes[]{_key, day, time, location}}`).pipe(
+      map((items: any[]) => items.filter(t => t?.slug))
+    );
+  }
+
   getAnnualProgram(): Observable<AnnualProgramPage | null> {
     return this.query(`coalesce(
       *[_type == "annualProgram"][0]{

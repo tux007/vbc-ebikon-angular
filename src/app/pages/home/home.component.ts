@@ -220,12 +220,18 @@ interface DisplayTeam {
         </div>
         <div class="training-layout">
           <div class="training-schedule glass" lgReveal>
-            @for (r of trainingRows; track r.team) {
-              <div class="training-row">
-                <div class="day">{{ r.day }}</div>
-                <div class="team">{{ r.team }}</div>
-                <div class="time">{{ r.time }}</div>
-              </div>
+            @if (!trainingDays.length) {
+              <div class="training-loading">Trainingszeiten werden geladen …</div>
+            }
+            @for (day of trainingDays; track day.label) {
+              <div class="training-day-header">{{ day.label }}</div>
+              @for (r of day.rows; track r.team + r.time) {
+                <div class="training-row">
+                  <div class="team">{{ r.team }}</div>
+                  <div class="location">{{ r.location }}</div>
+                  <div class="time">{{ r.time }}</div>
+                </div>
+              }
             }
           </div>
           <div class="training-halls">
@@ -288,8 +294,7 @@ interface DisplayTeam {
           <p class="lead">Herzlichen Dank an unsere Sponsoren, die den VBC Ebikon tatkräftig unterstützen!</p>
         </div>
 
-        <div class="sponsor-hero glass glass-strong" lgReveal
-             [class.clickable]="mainSponsor?.url" (click)="openSponsorUrl(mainSponsor)">
+        <div class="sponsor-hero glass glass-strong" lgReveal>
           <div class="sponsor-hero-meta">
             <span class="badge">Hauptsponsor</span>
             <h3 class="sponsor-hero-name">Dein Logo <em>hier.</em></h3>
@@ -303,7 +308,8 @@ interface DisplayTeam {
           </div>
           <div class="sponsor-hero-logo">
             @if (mainSponsor?.logo?.url) {
-              <div class="sponsor-logo-placeholder big">
+              <div class="sponsor-logo-placeholder big"
+                   [class.clickable]="mainSponsor?.url" (click)="openSponsorUrl(mainSponsor)">
                 <img [src]="mainSponsor!.logo!.url" [alt]="mainSponsor!.name" />
               </div>
             } @else {
@@ -415,15 +421,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     { tag: 'Juniorinnen', name: 'DJ', nameItalic: '3', league: 'U17', slug: 'dj3', gridSpan: 3 },
   ];
 
-  readonly trainingRows = [
-    { day: 'Mo', team: 'Damen 1', time: '20:00 – 22:00' },
-    { day: 'Di', team: 'Herren 1', time: '20:00 – 22:00' },
-    { day: 'Di', team: 'DJ1 / DJ2', time: '18:00 – 20:00' },
-    { day: 'Mi', team: 'Damen 2 & Herren 2', time: '20:00 – 22:00' },
-    { day: 'Do', team: 'Herren 1', time: '20:00 – 22:00' },
-    { day: 'Do', team: 'DJ3', time: '17:30 – 19:00' },
-    { day: 'Fr', team: 'Plausch mixed', time: '19:30 – 21:30' },
-  ];
+  private readonly dayOrder = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+  trainingDays: { label: string; rows: { team: string; time: string; location: string }[] }[] = [];
 
   readonly newsItems = [
     { cat: 'Matchbericht', title: 'H1 dreht das Spiel gegen Luzern im fünften Satz', date: '20. April 2026', thumb: 'ACTION SHOT · HALLE' },
@@ -441,6 +440,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
       error: () => { this.scheduleError = 'Daten konnten nicht geladen werden.'; this.loadingSchedule = false; },
     });
     this.sanity.getSponsors().subscribe(s => { this.sponsors = s; });
+    this.sanity.getTeamsWithTraining().subscribe(teams => {
+      const map = new Map<string, { team: string; time: string; location: string }[]>();
+      for (const team of teams) {
+        for (const t of team.trainingTimes ?? []) {
+          if (!t.day || !t.time) continue;
+          if (!map.has(t.day)) map.set(t.day, []);
+          map.get(t.day)!.push({ team: team.name, time: t.time, location: t.location ?? '' });
+        }
+      }
+      this.trainingDays = this.dayOrder
+        .filter(d => map.has(d))
+        .map(d => ({
+          label: d,
+          rows: map.get(d)!.sort((a, b) => a.time.localeCompare(b.time)),
+        }));
+    });
   }
 
   ngAfterViewInit(): void {
