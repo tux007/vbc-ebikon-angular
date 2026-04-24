@@ -79,8 +79,8 @@ interface DisplayTeam {
             <div class="lbl">Aktive Mannschaften</div>
           </div>
           <div class="cell">
-            <div class="num">SVRI</div>
-            <div class="lbl">Region Innerschweiz</div>
+            <div class="num">245</div>
+            <div class="lbl">Aktiv-Mitglieder</div>
           </div>
           <div class="cell">
             <div class="num">1974</div>
@@ -229,31 +229,49 @@ interface DisplayTeam {
             }
           </div>
           <div class="training-halls">
-            <div class="side-card glass" lgReveal>
-              <div class="eyebrow">Halle 1</div>
-              <h3>MZH Wydenhof</h3>
-              <p>Unsere Hauptspielstätte. Drei Felder, Tribüne für 200 Zuschauer:innen, Bistro am Spieltag.</p>
-              <div class="addr">
-                <span>Schulhausstrasse 22</span>
-                <span>6030 Ebikon</span>
+            <div lgReveal>
+              <div class="side-card glass" lgHoverGlow
+                   (mousemove)="onCardMove($event)" (mouseleave)="onCardLeave($event)">
+                <div class="shine"></div>
+                <div style="position:relative; z-index:2">
+                  <div class="eyebrow">Halle 1</div>
+                  <h3>MZH Wydenhof</h3>
+                  <p>Unsere Hauptspielstätte. Drei Felder, Tribüne für 200 Zuschauer:innen, Bistro am Spieltag.</p>
+                  <div class="addr">
+                    <span>Schulhausstrasse 22</span>
+                    <span>6030 Ebikon</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="side-card glass" lgReveal style="transition-delay:80ms">
-              <div class="eyebrow">Halle 2</div>
-              <h3>Feldmatt</h3>
-              <p>Unsere teilweise im Boden versenkte Halle — super Spielbelag.</p>
-              <div class="addr">
-                <span>Rankstrasse 2</span>
-                <span>6030 Ebikon</span>
+            <div lgReveal style="transition-delay:80ms">
+              <div class="side-card glass" lgHoverGlow
+                   (mousemove)="onCardMove($event)" (mouseleave)="onCardLeave($event)">
+                <div class="shine"></div>
+                <div style="position:relative; z-index:2">
+                  <div class="eyebrow">Halle 2</div>
+                  <h3>Feldmatt</h3>
+                  <p>Unsere teilweise im Boden versenkte Halle — super Spielbelag.</p>
+                  <div class="addr">
+                    <span>Rankstrasse 2</span>
+                    <span>6030 Ebikon</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="side-card glass" lgReveal style="transition-delay:160ms">
-              <div class="eyebrow">Halle 3</div>
-              <h3>Schulhaus Zentral</h3>
-              <p>Klein aber fein — ideal für unsere Juniorinnen und Junioren.</p>
-              <div class="addr">
-                <span>Schulhausstrasse 2</span>
-                <span>6030 Ebikon</span>
+            <div lgReveal style="transition-delay:160ms">
+              <div class="side-card glass" lgHoverGlow
+                   (mousemove)="onCardMove($event)" (mouseleave)="onCardLeave($event)">
+                <div class="shine"></div>
+                <div style="position:relative; z-index:2">
+                  <div class="eyebrow">Halle 3</div>
+                  <h3>Schulhaus Zentral</h3>
+                  <p>Klein aber fein — ideal für unsere Juniorinnen und Junioren.</p>
+                  <div class="addr">
+                    <span>Schulhausstrasse 2</span>
+                    <span>6030 Ebikon</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -270,7 +288,8 @@ interface DisplayTeam {
           <p class="lead">Herzlichen Dank an unsere Sponsoren, die den VBC Ebikon tatkräftig unterstützen!</p>
         </div>
 
-        <div class="sponsor-hero glass glass-strong" lgReveal>
+        <div class="sponsor-hero glass glass-strong" lgReveal
+             [class.clickable]="mainSponsor?.url" (click)="openSponsorUrl(mainSponsor)">
           <div class="sponsor-hero-meta">
             <span class="badge">Hauptsponsor</span>
             <h3 class="sponsor-hero-name">Dein Logo <em>hier.</em></h3>
@@ -295,7 +314,8 @@ interface DisplayTeam {
 
         <div class="sponsor-grid">
           @for (s of otherSponsors; track s._id; let i = $index) {
-            <div class="sponsor-card glass" lgReveal [style.transition-delay]="(i * 50) + 'ms'">
+            <div class="sponsor-card glass" lgReveal [style.transition-delay]="(i * 50) + 'ms'"
+                 [class.clickable]="s.url" (click)="openSponsorUrl(s)">
               <div class="sponsor-card-tier">Sponsor</div>
               <div class="sponsor-logo-placeholder">
                 @if (s.logo?.url) {
@@ -466,6 +486,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   onCardLeave(e: MouseEvent): void {
     (e.currentTarget as HTMLElement).style.transform = '';
+  }
+
+  openSponsorUrl(sponsor: Sponsor | null): void {
+    if (sponsor?.url) window.open(sponsor.url, '_blank', 'noopener,noreferrer');
   }
 
   navigateToTeam(slug: string): void {
