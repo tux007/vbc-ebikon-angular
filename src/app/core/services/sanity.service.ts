@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { AnnualProgramPage, BoardMember, Sponsor, Team, StaticPage } from '../models';
+import { AnnualProgramPage, BoardMember, NewsPost, Sponsor, Team, StaticPage } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class SanityService {
@@ -92,5 +92,16 @@ export class SanityService {
 
   getPage(slug: string): Observable<StaticPage | null> {
     return this.query(`*[_type == "page" && slug == "${slug}"][0] {_id, title, slug, body, documents[]{_key, title, file{asset->{url}}}}`);
+  }
+
+  getNewsPosts(): Observable<NewsPost[]> {
+    return this.query(
+      `*[_type == "newsPost"] | order(publishedAt desc)[0..2] {_id, title, category, publishedAt, image{asset->{_ref, url}}}`
+    ).pipe(
+      map((items: any[]) => items.map(n => ({
+        ...n,
+        image: n.image ? { ...n.image, url: n.image.asset?.url ?? this.imageUrl(n.image.asset?._ref) } : undefined,
+      })))
+    );
   }
 }

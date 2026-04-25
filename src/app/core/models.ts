@@ -129,3 +129,11 @@ export interface PageDocument {
   title: string;
   file: { asset: { url: string } };
 }
+
+export interface NewsPost {
+  _id: string;
+  title: string;
+  category: string;
+  publishedAt: string;
+  image?: SanityImage & { url: string };
+}

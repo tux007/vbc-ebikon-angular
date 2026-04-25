@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, 
 import { Router } from '@angular/router';
 import { VolleyballApiService } from '../../core/services/volleyball-api.service';
 import { SanityService } from '../../core/services/sanity.service';
-import { GameResult, UpcomingGame, Sponsor } from '../../core/models';
+import { GameResult, NewsPost, UpcomingGame, Sponsor } from '../../core/models';
 import { LgRevealDirective } from '../../shared/directives/lg-reveal.directive';
 import { LgHoverGlowDirective } from '../../shared/directives/lg-hover-glow.directive';
 
@@ -194,14 +194,18 @@ interface DisplayTeam {
           </div>
         </div>
         <div class="news-grid">
-          @for (n of newsItems; track n.title; let i = $index) {
+          @for (n of newsItems; track n._id; let i = $index) {
             <div lgReveal [style.transition-delay]="(i * 80) + 'ms'">
               <article class="news-card glass">
-                <div class="thumb">{{ n.thumb }}</div>
+                <div class="thumb">
+                  @if (n.image?.url) {
+                    <img [src]="n.image!.url" [alt]="n.title" loading="lazy">
+                  }
+                </div>
                 <div class="body">
-                  <span class="cat">{{ n.cat }}</span>
+                  <span class="cat">{{ n.category }}</span>
                   <h3 class="title">{{ n.title }}</h3>
-                  <span class="date">{{ n.date }}</span>
+                  <span class="date">{{ formatNewsDate(n.publishedAt) }}</span>
                 </div>
               </article>
             </div>
@@ -424,11 +428,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private readonly dayOrder = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
   trainingDays: { label: string; rows: { team: string; time: string; location: string }[] }[] = [];
 
-  readonly newsItems = [
-    { cat: 'Matchbericht', title: 'H1 dreht das Spiel gegen Luzern im fünften Satz', date: '20. April 2026', thumb: 'ACTION SHOT · HALLE' },
-    { cat: 'Verein', title: 'Neuer Vorstand für die Saison 26/27 gewählt', date: '14. April 2026', thumb: 'GRUPPENFOTO' },
-    { cat: 'Junior:innen', title: 'U17 qualifiziert sich für das Schweizer Finale', date: '02. April 2026', thumb: 'SIEGESJUBEL' },
-  ];
+  newsItems: NewsPost[] = [];
 
   ngOnInit(): void {
     this.volleyballApi.getAllRecentResults().subscribe({
@@ -440,6 +440,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       error: () => { this.scheduleError = 'Daten konnten nicht geladen werden.'; this.loadingSchedule = false; },
     });
     this.sanity.getSponsors().subscribe(s => { this.sponsors = s; });
+    this.sanity.getNewsPosts().subscribe(n => { this.newsItems = n; });
     this.sanity.getTeamsWithTraining().subscribe(teams => {
       const map = new Map<string, { team: string; time: string; location: string }[]>();
       for (const team of teams) {
@@ -553,6 +554,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       setString: g.setResults.map(s => `${s.home}:${s.away}`).join(' · '),
       location: g.city,
     };
+  }
+
+  formatNewsDate(iso: string): string {
+    return new Date(iso).toLocaleDateString('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
   private monthName(m: number): string {
