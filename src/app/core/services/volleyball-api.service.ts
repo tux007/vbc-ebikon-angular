@@ -36,7 +36,10 @@ export class VolleyballApiService {
         map(games => this.extractLatestResult(games, team.name)),
         catchError(() => of(null))
       )
-    )).pipe(map(results => results.filter((r): r is GameResult => r !== null)));
+    )).pipe(
+      map(results => results.filter((r): r is GameResult => r !== null)),
+      map(results => results.sort((a, b) => b.playDate.getTime() - a.playDate.getTime()))
+    );
   }
 
   getAllUpcomingGames(): Observable<UpcomingGame[]> {
@@ -74,8 +77,10 @@ export class VolleyballApiService {
     const g = games[0];
     const raw: Record<string, { home: number; away: number }> = g.setResults ?? {};
     const setResults = Object.keys(raw).sort((a, b) => +a - +b).map(k => ({ home: raw[k].home, away: raw[k].away }));
+    const date = new Date(g.playDate.replace(' ', 'T'));
     return {
       teamName,
+      playDate: date,
       playDateTime: this.fmtLong(g.playDate),
       homeTeam: g.teams.home.caption,
       awayTeam: g.teams.away.caption,
@@ -99,6 +104,8 @@ export class VolleyballApiService {
       playDate: new Date(g.playDate),
       homeTeam: g.teams.home.caption,
       awayTeam: g.teams.away.caption,
+      homeLogo: g.teams.home.logo ?? '',
+      awayLogo: g.teams.away.logo ?? '',
       league: g.league.caption,
       city: g.hall.city,
       hall: g.hall.caption,

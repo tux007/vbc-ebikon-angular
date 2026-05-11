@@ -1,5 +1,6 @@
 export interface GameResult {
   teamName: string;
+  playDate: Date;
   playDateTime: string;
   homeTeam: string;
   awayTeam: string;
@@ -23,6 +24,8 @@ export interface UpcomingGame {
   playDate: Date;
   homeTeam: string;
   awayTeam: string;
+  homeLogo: string;
+  awayLogo: string;
   league: string;
   city: string;
   hall: string;

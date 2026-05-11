@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChildren, QueryList, inject } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { VolleyballApiService } from '../../core/services/volleyball-api.service';
 import { SanityService } from '../../core/services/sanity.service';
@@ -157,31 +157,62 @@ interface DisplayTeam {
             <p>{{ scheduleError }}</p>
           </div>
         } @else {
-          @for (m of scheduleList; track m.teamName + m.time + m.setString; let i = $index) {
-            <div class="match-card glass reveal" [style.transition-delay]="(i * 50) + 'ms'">
-              <div class="match-date">
-                <div class="day">{{ m.day }}</div>
-                <div class="mon">{{ m.mon }}</div>
-              </div>
-              <div class="teams-block">
-                <div class="team-line home-team" [class.winner]="scheduleTab === 'recent' && isWinHome(m)">
-                  <div class="team-logo"></div>
-                  <span>{{ m.homeTeam }}</span>
-                  <span class="set-score">{{ scheduleTab === 'upcoming' ? '—' : m.setsHome }}</span>
-                </div>
-                <div class="team-line" [class.winner]="scheduleTab === 'recent' && isWinAway(m)">
-                  <div class="team-logo"></div>
-                  <span>{{ m.awayTeam }}</span>
-                  <span class="set-score">{{ scheduleTab === 'upcoming' ? '—' : m.setsAway }}</span>
-                </div>
-              </div>
-              <div class="match-info">
-                <span class="badge">{{ m.teamName }}</span>
-                <span class="match-time">{{ scheduleTab === 'upcoming' ? m.time : m.setString }}</span>
-                <span>{{ m.location }}</span>
-              </div>
+          @if (scheduleList.length === 0) {
+            <div class="schedule-empty glass">
+              <span>{{ scheduleTab === 'upcoming' ? 'Aktuell sind keine Spiele geplant.' : 'Keine Resultate vorhanden.' }}</span>
             </div>
           }
+          <div class="schedule-grid">
+          @for (m of scheduleList; track m.teamName + m.time; let i = $index) {
+            <div class="match-card glass reveal" [style.transition-delay]="(i * 50) + 'ms'">
+
+              <div class="mc-header">
+                <span class="mc-datetime">{{ m.day }}. {{ m.mon }} {{ m.year }}, {{ m.time }}</span>
+                <span class="mc-location">{{ m.location }}</span>
+              </div>
+
+              @if (scheduleTab === 'recent') {
+                <div class="mc-body">
+                  <div class="mc-score">
+                    <span [class.mc-winner]="isWinHome(m)">{{ m.setsHome }}</span>
+                    <span class="mc-sep">:</span>
+                    <span [class.mc-winner]="isWinAway(m)">{{ m.setsAway }}</span>
+                  </div>
+                  <div class="mc-sets">
+                    @for (s of m.sets; track $index) {
+                      @if (s !== null) {
+                        <span>{{ s.h }}:{{ s.a }}</span>
+                      }
+                    }
+                  </div>
+                </div>
+              } @else {
+                <div class="mc-upcoming">
+                  <div class="mc-vs">
+                    <span>{{ m.homeTeam }}</span>
+                    <span class="mc-vs-sep">vs</span>
+                    <span>{{ m.awayTeam }}</span>
+                  </div>
+                </div>
+              }
+
+              <div class="mc-teams">
+                <div class="mc-team">
+                  <span>{{ m.homeTeam }}</span>
+                </div>
+                <div class="mc-team mc-team-away">
+                  <span>{{ m.awayTeam }}</span>
+                </div>
+              </div>
+
+              <div class="mc-footer">
+                <span class="mc-league">{{ m.league }}</span>
+                <span class="badge">{{ m.teamName }}</span>
+              </div>
+
+            </div>
+          }
+          </div>
         }
       </section>
 
@@ -373,7 +404,7 @@ interface DisplayTeam {
                 <option value="" disabled selected>Welche Kategorie?</option>
                 <option>Damen</option>
                 <option>Herren</option>
-                <option>Juniorinnen (U15–U19)</option>
+                <option>U-Bereich</option>
                 <option>Plausch mixed</option>
               </select>
             </div>
@@ -401,7 +432,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   sponsors: Sponsor[] = [];
   loadingSchedule = true;
   scheduleError: string | null = null;
-  scheduleTab: 'upcoming' | 'recent' = 'upcoming';
+  private _scheduleTab: 'upcoming' | 'recent' = 'upcoming';
+  get scheduleTab() { return this._scheduleTab; }
+  set scheduleTab(v: 'upcoming' | 'recent') {
+    this._scheduleTab = v;
+    setTimeout(() => this.initScrollReveal(), 50);
+  }
 
   get lastResult(): GameResult | null { return this.results[0] ?? null; }
   get mainSponsor(): Sponsor | null { return this.sponsors[0] ?? null; }
@@ -432,11 +468,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.volleyballApi.getAllRecentResults().subscribe({
-      next: r => { this.results = r; this.checkScheduleLoaded(); },
+      next: r => { this.results = r; this._resultsLoaded = true; this.checkScheduleLoaded(); },
       error: () => { this.scheduleError = 'Daten konnten nicht geladen werden.'; this.loadingSchedule = false; },
     });
     this.volleyballApi.getAllUpcomingGames().subscribe({
-      next: g => { this.upcomingGames = g; this.checkScheduleLoaded(); },
+      next: g => { this.upcomingGames = g; this._upcomingLoaded = true; this.checkScheduleLoaded(); },
       error: () => { this.scheduleError = 'Daten konnten nicht geladen werden.'; this.loadingSchedule = false; },
     });
     this.sanity.getSponsors().subscribe(s => { this.sponsors = s; });
@@ -466,18 +502,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private _resultsLoaded = false;
   private _upcomingLoaded = false;
   private checkScheduleLoaded(): void {
-    if (this.results.length > 0 || this._resultsLoaded) this._resultsLoaded = true;
-    if (this.upcomingGames.length > 0 || this._upcomingLoaded) this._upcomingLoaded = true;
-    if (this._resultsLoaded && this._upcomingLoaded) this.loadingSchedule = false;
-    if (!this.loadingSchedule && this.results.length === 0 && this.upcomingGames.length === 0) {
+    if (this._resultsLoaded && this._upcomingLoaded) {
       this.loadingSchedule = false;
+      setTimeout(() => this.initScrollReveal(), 50);
     }
-    setTimeout(() => { this.loadingSchedule = false; }, 8000);
   }
 
   private initScrollReveal(): void {
     if (typeof IntersectionObserver === 'undefined') {
-      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      document.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in'));
       return;
     }
     const io = new IntersectionObserver(entries => {
@@ -485,7 +518,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
   }
 
   onCardMove(e: MouseEvent): void {
@@ -527,31 +560,44 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private mapUpcoming(g: UpcomingGame) {
     const d = g.playDate;
     return {
-      day: d.getDate().toString(),
+      day: d.getDate().toString().padStart(2, '0'),
       mon: d.toLocaleDateString('de-CH', { month: 'short' }),
+      year: d.getFullYear().toString(),
       homeTeam: g.homeTeam,
       awayTeam: g.awayTeam,
       teamName: g.teamName,
-      time: g.playDateTime,
+      time: d.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' }),
+      league: g.league,
+      homeLogo: g.homeLogo,
+      awayLogo: g.awayLogo,
       setsHome: 0, setsAway: 0, setString: '',
+      sets: [null, null, null, null, null] as (null)[],
       location: g.city + (g.hall ? ` · ${g.hall}` : ''),
     };
   }
 
   private mapResult(g: GameResult) {
-    const parts = g.playDateTime.split(',');
-    const dateStr = parts[0]?.trim() ?? g.playDateTime;
-    const dateParts = dateStr.split('.');
+    const d = g.playDate;
+    type SetEntry = { h: number; a: number } | null;
+    const sets = ([
+      ...g.setResults.map(s => ({ h: s.home, a: s.away })),
+      null, null, null, null, null,
+    ] as SetEntry[]).slice(0, 5);
     return {
-      day: dateParts[0] ?? '',
-      mon: dateParts[1] ? this.monthName(parseInt(dateParts[1])) : '',
+      day: d.getDate().toString().padStart(2, '0'),
+      mon: d.toLocaleDateString('de-CH', { month: 'short' }),
+      year: d.getFullYear().toString(),
       homeTeam: g.homeTeam,
       awayTeam: g.awayTeam,
       teamName: g.teamName,
-      time: '',
+      time: d.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' }),
+      league: g.league,
+      homeLogo: g.homeLogo,
+      awayLogo: g.awayLogo,
       setsHome: g.wonSetsHome,
       setsAway: g.wonSetsAway,
-      setString: g.setResults.map(s => `${s.home}:${s.away}`).join(' · '),
+      setString: '',
+      sets,
       location: g.city,
     };
   }
@@ -560,8 +606,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return new Date(iso).toLocaleDateString('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
   }
 
-  private monthName(m: number): string {
-    const months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-    return months[m - 1] ?? '';
-  }
 }
