@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, forkJoin, map, catchError, of } from 'rxjs';
+import { Observable, from, map, catchError, mergeMap, of, toArray, timer, retry } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { GameResult, UpcomingGame, RankingEntry, TeamConfig } from '../models';
 
@@ -20,6 +20,8 @@ export class VolleyballApiService {
   private headers = new HttpHeaders({ Authorization: environment.volleyballAuthToken });
   private base = environment.volleyballApiBase;
   private clubId = environment.volleyballClubId;
+  private readonly maxRetries = 2;
+  private readonly retryDelayMs = 500;
 
   getTeams(): TeamConfig[] { return TEAMS; }
 
@@ -28,30 +30,44 @@ export class VolleyballApiService {
   }
 
   getAllRecentResults(): Observable<GameResult[]> {
-    return forkJoin(TEAMS.map(team =>
-      this.http.get<any[]>(
-        `${this.base}/recentResults?region=SVRI&gender=${team.gender}&clubId=${this.clubId}&teamId=${team.teamId}`,
-        { headers: this.headers }
-      ).pipe(
-        map(games => this.extractLatestResult(games, team.name)),
-        catchError(() => of(null))
-      )
-    )).pipe(
+    return from(TEAMS).pipe(
+      mergeMap(team =>
+        this.http.get<any[]>(
+          `${this.base}/recentResults?region=SVRI&gender=${team.gender}&clubId=${this.clubId}&teamId=${team.teamId}`,
+          { headers: this.headers }
+        ).pipe(
+          retry({
+            count: this.maxRetries,
+            delay: (_error, retryCount) => timer(this.retryDelayMs * retryCount)
+          }),
+          map(games => this.extractLatestResult(games, team.name)),
+          catchError(() => of(null))
+        ),
+        3
+      ),
+      toArray(),
       map(results => results.filter((r): r is GameResult => r !== null)),
       map(results => results.sort((a, b) => b.playDate.getTime() - a.playDate.getTime()))
     );
   }
 
   getAllUpcomingGames(): Observable<UpcomingGame[]> {
-    return forkJoin(TEAMS.map(team =>
-      this.http.get<any[]>(
-        `${this.base}/upcomingGames?region=SVRI&gender=${team.gender}&clubId=${this.clubId}&teamId=${team.teamId}`,
-        { headers: this.headers }
-      ).pipe(
-        map(games => this.extractNextGame(games, team.name)),
-        catchError(() => of(null))
-      )
-    )).pipe(
+    return from(TEAMS).pipe(
+      mergeMap(team =>
+        this.http.get<any[]>(
+          `${this.base}/upcomingGames?region=SVRI&gender=${team.gender}&clubId=${this.clubId}&teamId=${team.teamId}`,
+          { headers: this.headers }
+        ).pipe(
+          retry({
+            count: this.maxRetries,
+            delay: (_error, retryCount) => timer(this.retryDelayMs * retryCount)
+          }),
+          map(games => this.extractNextGame(games, team.name)),
+          catchError(() => of(null))
+        ),
+        3
+      ),
+      toArray(),
       map(results => results.filter((r): r is UpcomingGame => r !== null)),
       map(games => games.sort((a, b) => a.playDate.getTime() - b.playDate.getTime()))
     );
@@ -59,6 +75,10 @@ export class VolleyballApiService {
 
   getRanking(groupId: string): Observable<RankingEntry[]> {
     return this.http.get<any[]>(`${this.base}/ranking/${groupId}`, { headers: this.headers }).pipe(
+      retry({
+        count: this.maxRetries,
+        delay: (_error, retryCount) => timer(this.retryDelayMs * retryCount)
+      }),
       map(data => data.map(row => ({
         rank: row.rank,
         teamCaption: row.teamCaption,

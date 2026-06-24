@@ -32,7 +32,7 @@ interface DisplayTeam {
         </div>
 
         <h1 class="hero-title">
-          <span class="line"><span class="word" style="animation-delay:0.1s">Volleyballclub</span></span>
+          <span class="line"><span class="word" style="animation-delay:0.1s">VBC</span></span>
           <span class="line"><span class="word italic" style="animation-delay:0.25s">Ebikon.</span></span>
         </h1>
 
@@ -79,7 +79,7 @@ interface DisplayTeam {
             <div class="lbl">Aktive Mannschaften</div>
           </div>
           <div class="cell">
-            <div class="num">245</div>
+            <div class="num">268</div>
             <div class="lbl">Aktiv-Mitglieder</div>
           </div>
           <div class="cell">
