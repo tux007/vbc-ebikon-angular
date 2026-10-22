@@ -1,0 +1,10 @@
+{
+  "/api/volleyball": {
+    "target": "https://api.volleyball.ch",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api/volleyball": "/indoor"
+    }
+  }
+}

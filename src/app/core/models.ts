@@ -1,5 +1,6 @@
 export interface GameResult {
   teamName: string;
+  playDate: Date;
   playDateTime: string;
   homeTeam: string;
   awayTeam: string;
@@ -23,6 +24,8 @@ export interface UpcomingGame {
   playDate: Date;
   homeTeam: string;
   awayTeam: string;
+  homeLogo: string;
+  awayLogo: string;
   league: string;
   city: string;
   hall: string;
@@ -128,4 +131,12 @@ export interface PageDocument {
   _key: string;
   title: string;
   file: { asset: { url: string } };
+}
+
+export interface NewsPost {
+  _id: string;
+  title: string;
+  category: string;
+  publishedAt: string;
+  image?: SanityImage & { url: string };
 }

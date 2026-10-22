@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  volleyballApiBase: 'https://api.volleyball.ch/indoor',
+  volleyballApiBase: '/api/volleyball',
   volleyballAuthToken: 'ef3775e2a47b975672144722db6ef8840258f873',
   volleyballClubId: 911080,
   sanityProjectId: 'u02qwa74',

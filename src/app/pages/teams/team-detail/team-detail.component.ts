@@ -29,20 +29,6 @@ import { RankingEntry, Team } from '../../../core/models';
           </section>
         }
 
-        @if (team?.trainingTimes?.length) {
-          <section class="team-info-section lg-glass" style="margin-bottom:2rem;">
-            <h2>Trainingszeiten</h2>
-            <ul>
-              @for (slot of team!.trainingTimes!; track slot._key || $index) {
-                <li>
-                  <strong>{{ slot.day || 'Training' }}</strong>
-                  @if (slot.time) { <span> - {{ slot.time }}</span> }
-                  @if (slot.location) { <span> ({{ slot.location }})</span> }
-                </li>
-              }
-            </ul>
-          </section>
-        }
 
         @if (team?.coaches?.length) {
           <section class="team-info-section lg-glass" style="margin-bottom:2rem;">

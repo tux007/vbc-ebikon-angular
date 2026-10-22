@@ -19,6 +19,13 @@
   status = 200
   force = false
 
+# Volleyball API Proxy (CORS-Workaround)
+[[redirects]]
+  from = "/api/volleyball/*"
+  to = "https://api.volleyball.ch/indoor/:splat"
+  status = 200
+  force = true
+
 # SPA Routing: alle übrigen Pfade auf Angular index.html umleiten
 [[redirects]]
   from = "/*"

@@ -1,9 +1,9 @@
 :host {
-  --color-spezialtraining: #3b82f6;
-  --color-volleyballlager: #f59e0b;
-  --color-vereinsanlass: #10b981;
-  --color-spieltag: #ef4444;
-  --color-trainingsweekend: #8b5cf6;
+  --color-spezialtraining: oklch(0.7 0.18 240);
+  --color-volleyballlager: oklch(0.78 0.16 28);
+  --color-vereinsanlass: oklch(0.72 0.18 155);
+  --color-spieltag: oklch(0.68 0.2 25);
+  --color-trainingsweekend: oklch(0.72 0.16 290);
   display: block;
 }
 
@@ -11,19 +11,20 @@
   max-width: 1220px;
   margin: 0 auto;
   padding: 2rem 1rem 5rem;
-  color: #172033;
+  color: var(--fg);
 }
 
 .annual-program-hero {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: var(--radius-lg, 28px);
   padding: 4rem 1.4rem 2.2rem;
   background:
-    radial-gradient(circle at top left, rgba(16, 185, 129, 0.16), transparent 32%),
-    radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 28%),
-    linear-gradient(135deg, #f8fbff 0%, #eef3ff 44%, #f6f5ff 100%);
-  box-shadow: 0 22px 60px rgba(30, 41, 59, 0.08);
+    radial-gradient(circle at top left, oklch(0.72 0.18 155 / 0.1), transparent 32%),
+    radial-gradient(circle at top right, oklch(0.7 0.18 240 / 0.08), transparent 28%),
+    rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
 }
 
 .annual-program-year {
@@ -34,7 +35,7 @@
   font-weight: 900;
   line-height: 0.92;
   letter-spacing: -0.06em;
-  color: rgba(17, 24, 39, 0.08);
+  color: rgba(255, 255, 255, 0.04);
   pointer-events: none;
 }
 
@@ -50,13 +51,14 @@
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #3157d5;
+  color: var(--accent, oklch(0.78 0.16 28));
 }
 
 .annual-program-heading h1 {
   margin: 0.35rem 0 0.85rem;
   font-size: clamp(2.2rem, 5vw, 4rem);
   line-height: 0.95;
+  color: var(--fg);
 }
 
 .annual-program-subtitle,
@@ -64,7 +66,7 @@
   max-width: 58ch;
   font-size: 1rem;
   line-height: 1.7;
-  color: #475569;
+  color: var(--fg-dim, rgba(244, 241, 234, 0.7));
 }
 
 .annual-program-toolbar {
@@ -87,10 +89,11 @@
 .past-toggle {
   border: 0;
   border-radius: 999px;
-  background: #fff;
-  color: #1f2937;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--fg-dim, rgba(244, 241, 234, 0.7));
   cursor: pointer;
   font: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .filter-pill {
@@ -100,8 +103,7 @@
   gap: 0.55rem;
   padding: 0.82rem 1rem;
   white-space: nowrap;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+  transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
 .filter-pill::after {
@@ -112,7 +114,7 @@
   bottom: 0.48rem;
   height: 2px;
   border-radius: 999px;
-  background: var(--pill-color, #1f2937);
+  background: var(--pill-color, var(--accent));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.24s ease;
@@ -128,11 +130,11 @@
 .filter-pill:focus,
 .filter-pill.is-active {
   transform: translateY(-2px);
-  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .filter-pill.is-active {
-  color: var(--pill-color, #3157d5);
+  color: var(--pill-color, var(--accent));
 }
 
 .filter-pill.is-active::after {
@@ -142,13 +144,12 @@
 .past-toggle {
   align-self: flex-start;
   padding: 0.8rem 1.1rem;
-  box-shadow: inset 0 0 0 1px rgba(71, 85, 105, 0.18);
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .past-toggle:hover,
 .past-toggle:focus {
-  background: #eef3ff;
+  background: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
 }
 
@@ -168,12 +169,17 @@
 
 .timeline-shell::before {
   width: 2px;
-  background: rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .timeline-shell::after {
   width: 3px;
-  background: linear-gradient(180deg, #3157d5, #10b981 38%, #f59e0b 76%, #ef4444 100%);
+  background: linear-gradient(180deg,
+    oklch(0.7 0.18 240),
+    oklch(0.72 0.18 155) 38%,
+    oklch(0.78 0.16 28) 76%,
+    oklch(0.68 0.2 25) 100%
+  );
   transform-origin: top;
   animation: timeline-draw 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -194,10 +200,11 @@
   margin-bottom: 1rem;
   padding: 0.65rem 0.95rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  background: rgba(7, 9, 15, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   font-weight: 700;
+  color: var(--fg);
 }
 
 .current-month-badge,
@@ -212,8 +219,8 @@
 }
 
 .current-month-badge {
-  background: rgba(49, 87, 213, 0.1);
-  color: #3157d5;
+  background: oklch(0.78 0.16 28 / 0.15);
+  color: var(--accent, oklch(0.78 0.16 28));
 }
 
 .timeline-month-cards {
@@ -236,8 +243,8 @@
   height: 16px;
   border-radius: 999px;
   background: var(--event-color);
-  border: 4px solid #fff;
-  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.9), 0 12px 24px rgba(15, 23, 42, 0.14);
+  border: 4px solid var(--bg-0, #07090f);
+  box-shadow: 0 0 0 5px rgba(7, 9, 15, 0.6), 0 12px 24px rgba(0, 0, 0, 0.4);
 }
 
 .timeline-card-surface {
@@ -245,10 +252,11 @@
   overflow: hidden;
   border-radius: 24px;
   padding: 1.15rem;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.09);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  transition: transform 0.22s ease, background 0.22s ease;
+  color: var(--fg);
 }
 
 .timeline-card-surface::before {
@@ -262,7 +270,7 @@
 .timeline-card:hover .timeline-card-surface,
 .timeline-card:focus-within .timeline-card-surface {
   transform: translateY(-4px);
-  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.14);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .timeline-card.is-highlight .timeline-card-surface {
@@ -271,11 +279,11 @@
 
 .timeline-card.is-past .timeline-card-surface,
 .timeline-card.is-past .timeline-dot {
-  filter: grayscale(0.22);
+  filter: grayscale(0.4);
 }
 
 .timeline-card.is-past .timeline-card-surface {
-  opacity: 0.72;
+  opacity: 0.6;
 }
 
 .timeline-card-meta {
@@ -291,7 +299,7 @@
   gap: 0.42rem;
   padding: 0.38rem 0.7rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--event-color) 14%, white);
+  background: color-mix(in oklch, var(--event-color) 18%, transparent);
   color: var(--event-color);
   font-size: 0.79rem;
   font-weight: 800;
@@ -304,13 +312,13 @@
 }
 
 .timeline-badge.is-past {
-  background: rgba(100, 116, 139, 0.12);
-  color: #475569;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--fg-faint, rgba(244, 241, 234, 0.4));
 }
 
 .timeline-badge.is-countdown {
-  background: rgba(245, 158, 11, 0.14);
-  color: #b45309;
+  background: oklch(0.78 0.16 28 / 0.14);
+  color: var(--accent, oklch(0.78 0.16 28));
 }
 
 .timeline-date {
@@ -319,21 +327,23 @@
   font-weight: 800;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--fg-faint, rgba(244, 241, 234, 0.4));
 }
 
 .timeline-card h2 {
   margin: 0.5rem 0 0;
   font-size: 1.18rem;
   line-height: 1.35;
+  color: var(--fg);
 }
 
 .annual-program-empty-state {
   margin-top: 2rem;
   padding: 2rem;
   border-radius: 24px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(238, 243, 255, 0.95));
-  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--fg-dim);
 }
 
 .annual-program-loading {
@@ -341,21 +351,16 @@
 }
 
 @keyframes timeline-draw {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
 }
 
 @keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 16px 44px rgba(15, 23, 42, 0.09), 0 0 0 0 color-mix(in srgb, var(--event-color) 0%, transparent);
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 0 color-mix(in oklch, var(--event-color) 0%, transparent);
   }
   50% {
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.14), 0 0 0 10px color-mix(in srgb, var(--event-color) 14%, transparent);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), 0 0 0 10px color-mix(in oklch, var(--event-color) 14%, transparent);
   }
 }
 

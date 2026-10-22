@@ -1,17 +1,18 @@
-/* Team page */
+/* Team detail page */
 .team-main {
-  max-width: 900px;
+  max-width: var(--lg-container-md);
   margin: 0 auto;
-  padding: 2.5rem 1rem 3rem 1rem;
+  padding: 6rem 1rem 4rem;
   text-align: center;
 }
 
 .team-title {
-  font-size: 2.3rem;
-  font-weight: 700;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
   margin-bottom: 2rem;
-  color: black;
-  letter-spacing: 1px;
+  color: var(--fg);
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
   text-align: center;
 }
 
@@ -21,32 +22,54 @@
   align-items: center;
   margin-bottom: 2rem;
 }
-
 .team-photo {
   max-width: 50vw;
   height: auto;
-  border-radius: var(--lg-radius-md); /* nearest token */
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--lg-shadow-md);
   object-fit: cover;
+}
+@media (max-width: 700px) {
+  .team-photo { max-width: 90vw; max-height: 220px; }
+  .team-main { padding: 4rem 0.8rem 2rem; }
+  .team-title { font-size: 1.5rem; }
 }
 
 .team-info-blocks {
-  max-width: 50vw;
+  max-width: 52vw;
   margin: 0 auto;
   text-align: left;
+}
+@media (max-width: 700px) {
+  .team-info-blocks { max-width: 98vw; padding-left: 0.5rem; padding-right: 0.5rem; }
 }
 
 .team-info-blocks table { width: 100%; table-layout: fixed; }
 .team-info-blocks th,
-.team-info-blocks td { white-space: nowrap; padding: 0.2rem 0.7rem; font-size: 0.95em; text-align: left; }
+.team-info-blocks td {
+  white-space: nowrap;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.95em;
+  text-align: left;
+  color: var(--fg-dim);
+}
+.team-info-blocks th { color: var(--fg-faint); font-weight: 500; font-family: var(--font-mono); font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.team-info-section,
+.team-ranking-section {
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1rem;
+}
 
 .team-info-section h2,
 .team-players-section h2,
 .team-ranking-section h2 {
-  font-size: 1.35rem;
-  color: #222;
+  font-size: 1.2rem;
+  color: var(--fg);
   margin-bottom: 1rem;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
 }
 
 .team-training-list,
@@ -57,78 +80,43 @@
   display: inline-block;
   text-align: left;
 }
-
 .team-training-list li,
 .team-player-list li {
-  font-size: 1.08rem;
+  font-size: 1.02rem;
   padding: 0.3rem 0.7rem;
   border-radius: 6px;
   margin-bottom: 0.3rem;
-  color: #333;
+  color: var(--fg-dim);
 }
 
 .team-ranking-section { margin-top: 2.5rem; }
 
 .team-toggle-btn {
   background: none;
-  color: #222;
+  color: var(--fg);
   border: none;
-  font-size: 1.08rem;
-  font-weight: 600;
-  padding: 0.5rem 0;
-  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--radius-sm);
   margin-bottom: 0.7rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   width: 100%;
-  transition: background 0.2s;
+  transition: background var(--lg-dur-fast) var(--lg-ease-smooth);
 }
-
 .team-toggle-btn span {
-  font-size: 1.3em;
+  font-size: 1.2em;
   font-weight: bold;
   margin-right: 0.7em;
   display: inline-block;
   width: 1.2em;
   text-align: center;
 }
-
-.team-collapsible { margin-bottom: 1.2rem; }
-
-@media (max-width: 700px) {
-  .team-main { padding: 1.2rem 0.2rem 2rem 0.2rem; }
-  .team-photo { max-width: 90vw; max-height: 220px; }
-  .team-title { font-size: 1.5rem; }
-  .team-info-blocks { max-width: 98vw; padding-left: 0.5rem; padding-right: 0.5rem; }
-}
-
-.team-main {
-  max-width: var(--lg-container-md);
-}
-
-.team-title {
-  color: var(--lg-ink);
-}
-
-.team-photo {
-  border-radius: var(--lg-radius-md);
-  box-shadow: var(--lg-shadow-sm);
-}
-
-.team-info-section,
-.team-ranking-section {
-  padding: 1.1rem 1.2rem;
-}
-
-.team-toggle-btn {
-  color: var(--lg-ink);
-  border-radius: var(--lg-radius-sm);
-  transition: background var(--lg-dur-fast) var(--lg-ease-smooth), transform var(--lg-dur-fast) var(--lg-ease-spring);
-}
-
 .team-toggle-btn:hover,
 .team-toggle-btn:focus {
-  background: rgba(74, 109, 255, 0.14);
+  background: var(--glass-bg);
 }
 
+.team-collapsible { margin-bottom: 1.2rem; }
