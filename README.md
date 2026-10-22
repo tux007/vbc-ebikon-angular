@@ -1,59 +1,61 @@
-# VbcEbikonAngular
+# VBC Ebikon Website
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.16.
+Website des VBC Ebikon mit Angular. Die Inhalte werden über Sanity Studio gepflegt.
 
-## Development server
+## Voraussetzungen
 
-To start a local development server, run:
+- Node.js und npm
+- Zugriff auf das GitHub-Repository
+- Für Inhaltsänderungen: Zugriff auf das Sanity-Projekt
 
-```bash
-ng serve
-```
+## Installation
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Im Projektordner Abhängigkeiten für Angular installieren:
 
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Für Sanity Studio separat installieren:
 
 ```bash
-ng generate --help
+cd sanity-studio
+npm install
+cd ..
 ```
 
-## Building
+## Lokal starten
 
-To build the project run:
+Beide Anwendungen laufen in eigenen Terminals.
+
+**Terminal 1: Sanity Studio** (im Projektordner):
 
 ```bash
-ng build
+cd sanity-studio
+npm run dev
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Studio: http://localhost:3333
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+**Terminal 2: Angular Website** (im Projektordner):
 
 ```bash
-ng test
+npm start
 ```
 
-## Running end-to-end tests
+Website: http://localhost:4200
 
-For end-to-end (e2e) testing, run:
+Angular liest veröffentlichte Inhalte aus Sanity. Das Studio muss nicht laufen, damit die Website angezeigt wird. Für Inhaltsänderungen im Studio anmelden und Änderungen veröffentlichen, damit sie auf der Website erscheinen.
+
+Server mit `Ctrl+C` im jeweiligen Terminal stoppen.
+
+## Wichtige Befehle
 
 ```bash
-ng e2e
+npm test          # Angular-Tests
+npm run build     # Angular-Produktionsbuild
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Mitarbeit
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Änderungen möglichst auf einem eigenen Branch umsetzen und als Pull Request gegen `main` einreichen. Vor dem Merge Website und betroffene Inhalte prüfen. Keine Zugangsdaten, Tokens oder lokale Konfigurationsdateien mit Geheimnissen committen.
